@@ -1,0 +1,9 @@
+Main-Class: Start
+Class-Path: libs/netty-all-4.1.22.Final.jar
+             libs/slf4j-simple-1.7.25.jar
+             libs/protobuf-java-3.5.1.jar
+             libs/slf4j-api-1.7.25.jar
+             libs/log4j-1.2.17.jar
+Manifest-Version: 1.0
+Created-By: Apache Maven 3.3.9
+
