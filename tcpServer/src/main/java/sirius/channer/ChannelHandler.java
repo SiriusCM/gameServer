@@ -5,7 +5,9 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import sirius.proto.protobuf.Message;
+import sirius.World;
+import sirius.proto.Message;
+import sirius.proto.MessageEnum;
 
 public class ChannelHandler extends ChannelInboundHandlerAdapter {
 
@@ -25,12 +27,12 @@ public class ChannelHandler extends ChannelInboundHandlerAdapter {
 
 	@Override
 	public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-		Message.Position position = (Message.Position) msg;
-		logger.info("(" + position.getX() + "," + position.getY() + "," + position.getZ() + ")");
-		Message.Position.Builder builder = Message.Position.newBuilder();
-		builder.setX(0);
-		builder.setY(4);
-		builder.setZ(2);
-		ctx.writeAndFlush(builder.build());
+		Message message = (Message) msg;
+		for (MessageEnum m : MessageEnum.values()) {
+			if (m.getId() == message.getId()) {
+				byte[] data = message.getData();
+				World.map.get(m).handler(ctx, data);
+			}
+		}
 	}
 }

@@ -1,7 +1,8 @@
 package sirius.handler;
 
 import io.netty.channel.ChannelHandlerContext;
-import sirius.proto.protobuf.Message;
+import sirius.proto.MessageEnum;
+import sirius.proto.protobuf.Login;
 
 /**
  * @author 高连棣
@@ -9,17 +10,15 @@ import sirius.proto.protobuf.Message;
  */
 public class LoginHandle implements Handler {
 
-	private static final LoginHandle instance = new LoginHandle();
-
-	private LoginHandle() {
+	@Override
+	public boolean handler(ChannelHandlerContext ctx, byte[] data) throws Exception {
+		Login.Position position = Login.Position.parseFrom(data);
+		logger.info(position.getX());
+		return true;
 	}
 
 	@Override
-	public boolean handler(ChannelHandlerContext ctx, Message.Position msg) throws Exception {
-		return false;
-	}
-
-	public static LoginHandle getInstance() {
-		return instance;
+	public MessageEnum getProto() {
+		return MessageEnum.Login;
 	}
 }

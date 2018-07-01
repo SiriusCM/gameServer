@@ -27,7 +27,7 @@ public class ClassUtil {
         String path = packagename.replace('.', '/');
         ArrayList<File> fileList = new ArrayList<>();
 
-        Enumeration<URL> enumeration = classLoader.getResources("../java/" + path);
+        Enumeration<URL> enumeration = classLoader.getResources(path);
         while (enumeration.hasMoreElements()) {
             URL url = enumeration.nextElement();
             // 获取此 URL 的文件名
