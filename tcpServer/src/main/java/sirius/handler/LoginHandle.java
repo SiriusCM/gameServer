@@ -1,7 +1,8 @@
 package sirius.handler;
 
+import com.google.protobuf.ByteString;
 import io.netty.channel.ChannelHandlerContext;
-import sirius.proto.MessageEnum;
+import sirius.proto.Message;
 import sirius.proto.protobuf.Login;
 
 /**
@@ -11,14 +12,14 @@ import sirius.proto.protobuf.Login;
 public class LoginHandle implements Handler {
 
 	@Override
-	public boolean handler(ChannelHandlerContext ctx, byte[] data) throws Exception {
+	public boolean handler(ChannelHandlerContext ctx, ByteString data) throws Exception {
 		Login.Position position = Login.Position.parseFrom(data);
 		logger.info(position.getX());
 		return true;
 	}
 
 	@Override
-	public MessageEnum getProto() {
-		return MessageEnum.Login;
+	public Message getProto() {
+		return Message.Login;
 	}
 }

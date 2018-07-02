@@ -1,22 +1,40 @@
 package sirius;
 
+import org.springframework.stereotype.Component;
 import sirius.handler.Handler;
-import sirius.proto.MessageEnum;
+import sirius.proto.Message;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Component
 public final class World {
 
-	public static final Map<MessageEnum, Handler> map = new HashMap<>();
+	private final Map<Integer, Message> msgMap = new HashMap<>();
 
-	public static final void init() throws Exception {
+	private final Map<Message, Handler> handlerMap = new HashMap<>();
+
+	private World() {
+		try {
+			init();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public final void init() throws IOException, ClassNotFoundException {
+		for (Message m : Message.values()) {
+			msgMap.put(m.getId(), m);
+		}
 		List<Class> list = ClassUtil.getAllClassByInterface(Handler.class);
 		list.forEach(e -> {
 			try {
 				Handler handler = (Handler) e.newInstance();
-				map.put(handler.getProto(), handler);
+				handlerMap.put(handler.getProto(), handler);
 			} catch (InstantiationException e1) {
 				e1.printStackTrace();
 			} catch (IllegalAccessException e1) {
@@ -25,7 +43,13 @@ public final class World {
 		});
 	}
 
-	public static void main(String[] args) throws Exception {
-		init();
+	public Handler getHandler(int msgId) {
+		if (msgMap.containsKey(msgId)) {
+			Message m = msgMap.get(msgId);
+			if (handlerMap.containsKey(m)) {
+				return handlerMap.get(m);
+			}
+		}
+		return null;
 	}
 }

@@ -2,27 +2,19 @@ package sirius.proto;
 
 /**
  * @author 高连棣
- * @date 2018/6/30 18:41
+ * @date 2018/6/30 18:47
  */
-public class Message {
+public enum Message {
+	Login(1),
+	Match(2);
 
 	private int id;
 
-	private byte[] data;
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
+	Message(int id) {
 		this.id = id;
 	}
 
-	public byte[] getData() {
-		return data;
-	}
-
-	public void setData(byte[] data) {
-		this.data = data;
+	public int getId() {
+		return id;
 	}
 }
