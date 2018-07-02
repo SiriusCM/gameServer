@@ -9,7 +9,7 @@ public interface Handler {
 
 	Logger logger = Logger.getLogger(Handler.class);
 
-	boolean handler(ChannelHandlerContext ctx, ByteString data) throws Exception;
+	boolean handler(ChannelHandlerContext ctx, Object data) throws Exception;
 
 	Message getProto();
 }

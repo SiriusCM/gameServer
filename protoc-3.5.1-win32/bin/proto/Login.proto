@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+option java_outer_classname = "Login";
+
+message Position{
+	int32 x = 1;
+	int32 y = 2;
+	int32 z = 3;
+}

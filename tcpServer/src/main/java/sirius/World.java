@@ -43,6 +43,13 @@ public final class World {
 		});
 	}
 
+	public Message getMessage(int msgId) {
+		if (msgMap.containsKey(msgId)) {
+			return msgMap.get(msgId);
+		}
+		return null;
+	}
+
 	public Handler getHandler(int msgId) {
 		if (msgMap.containsKey(msgId)) {
 			Message m = msgMap.get(msgId);
