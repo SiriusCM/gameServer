@@ -19,8 +19,9 @@ public class ChannelInit extends ChannelInitializer<SocketChannel> {
 //		pipeline.addLast(new ProtobufVarint32FrameDecoder());
 //		pipeline.addLast("frameEncoder", new ProtobufVarint32LengthFieldPrepender());
 		pipeline.addLast("encoder", new ProtobufEncoder());
+		pipeline.addLast("encoder0", new ChannelOutHandler());
 		pipeline.addLast("decoder", new ProtobufDecoder(ProtoBuf.Message.getDefaultInstance()));
-		pipeline.addLast("handler", new SimpleChannelHandler());
+		pipeline.addLast("handler", new SimpleChannelInHandler());
 		logger.info("Client:" + ch.remoteAddress() + "连接上");
 	}
 }

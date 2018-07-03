@@ -1,34 +1,31 @@
 package sirius;
 
-import org.springframework.stereotype.Component;
+import com.google.protobuf.Parser;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import sirius.handler.Handler;
-import sirius.proto.Message;
+import sirius.proto.MsgProto;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Component
 public final class World {
-
-	private final Map<Integer, Message> msgMap = new HashMap<>();
-
-	private final Map<Message, Handler> handlerMap = new HashMap<>();
-
-	private World() {
-		try {
-			init();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-	}
-
-	public final void init() throws IOException, ClassNotFoundException {
-		for (Message m : Message.values()) {
-			msgMap.put(m.getId(), m);
+	
+	private static final World instance = new World();
+	
+	private final ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
+	
+	private final Map<Integer, MsgProto> msgProtoMap = new HashMap<>();
+	
+	private final Map<Parser, Integer> msgIdMap = new HashMap<>();
+	
+	private final Map<MsgProto, Handler> handlerMap = new HashMap<>();
+	
+	public World() {
+		for (MsgProto m : MsgProto.values()) {
+			msgProtoMap.put(m.getId(), m);
+			msgIdMap.put(m.getParser(), m.getId());
 		}
 		List<Class> list = ClassUtil.getAllClassByInterface(Handler.class);
 		list.forEach(e -> {
@@ -42,21 +39,33 @@ public final class World {
 			}
 		});
 	}
-
-	public Message getMessage(int msgId) {
-		if (msgMap.containsKey(msgId)) {
-			return msgMap.get(msgId);
+	
+	public ApplicationContext getApplicationContext() {
+		return applicationContext;
+	}
+	
+	public MsgProto getMsgProto(int msgId) {
+		if (msgProtoMap.containsKey(msgId)) {
+			return msgProtoMap.get(msgId);
 		}
 		return null;
 	}
-
-	public Handler getHandler(int msgId) {
-		if (msgMap.containsKey(msgId)) {
-			Message m = msgMap.get(msgId);
-			if (handlerMap.containsKey(m)) {
-				return handlerMap.get(m);
-			}
+	
+	public Integer getMsgId(Parser parser) {
+		if (msgIdMap.containsKey(parser)) {
+			return msgIdMap.get(parser);
 		}
 		return null;
+	}
+	
+	public Handler getHandler(MsgProto msgProto) {
+		if (handlerMap.containsKey(msgProto)) {
+			return handlerMap.get(msgProto);
+		}
+		return null;
+	}
+	
+	public static World getInstance() {
+		return instance;
 	}
 }
