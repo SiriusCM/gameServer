@@ -15,9 +15,9 @@ import sirius.proto.protobuf.Login;
  * @date 2018/7/2 11:03
  */
 public class SimpleChannelInHandler extends SimpleChannelInboundHandler<ProtoBuf.Message> {
-	
+
 	private static final Logger logger = LoggerFactory.getLogger(ChannelHandler.class);
-	
+
 	@Override
 	public void channelActive(ChannelHandlerContext ctx) throws Exception {
 		Channel incoming = ctx.channel();
@@ -26,18 +26,19 @@ public class SimpleChannelInHandler extends SimpleChannelInboundHandler<ProtoBuf
 		builder.setX(1);
 		builder.setY(4);
 		builder.setZ(-7);
-		ProtoBuf.Message.Builder m = ProtoBuf.Message.newBuilder();
-		m.setId(World.getInstance().getMsgId(Login.Position.parser()));
-		m.setData(builder.build().toByteString());
-		ctx.writeAndFlush(m);
+
+		ProtoBuf.Message.Builder message = ProtoBuf.Message.newBuilder();
+		message.setId(World.getInstance().getMsgId(Login.Position.parser()));
+		message.setData(builder.build().toByteString());
+		ctx.writeAndFlush(message);
 	}
-	
+
 	@Override
 	public void channelInactive(ChannelHandlerContext ctx) throws Exception {
 		Channel incoming = ctx.channel();
 		logger.info("Client:" + incoming.remoteAddress() + "掉线");
 	}
-	
+
 	@Override
 	protected void channelRead0(ChannelHandlerContext ctx, ProtoBuf.Message message) throws Exception {
 		MsgProto msgProto = World.getInstance().getMsgProto(message.getId());
