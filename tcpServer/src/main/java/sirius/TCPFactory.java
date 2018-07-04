@@ -39,7 +39,6 @@ public class TCPFactory {
                 .channel(NioSocketChannel.class)
                 .handler(adapter);
         ChannelFuture channelFuture = bootstrap.connect(host, port).sync();
-        logger.info("Client 启动{}...", channelFuture.channel().remoteAddress());
         return channelFuture;
     }
 }
