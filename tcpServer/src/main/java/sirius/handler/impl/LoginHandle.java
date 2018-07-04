@@ -1,8 +1,9 @@
-package sirius.handler;
+package sirius.handler.impl;
 
-import io.netty.channel.ChannelHandlerContext;
+import sirius.handler.Handler;
 import sirius.proto.MsgProto;
 import sirius.proto.protobuf.Login;
+import sirius.sprite.Player;
 
 /**
  * @author 高连棣
@@ -11,7 +12,7 @@ import sirius.proto.protobuf.Login;
 public class LoginHandle implements Handler {
 	
 	@Override
-	public boolean handler(ChannelHandlerContext ctx, Object data) throws Exception {
+	public boolean handler(Player player, Object data) throws Exception {
 		Login.Position position = (Login.Position) data;
 		logger.info(position.getX());
 		logger.info(position.getY());
@@ -21,6 +22,6 @@ public class LoginHandle implements Handler {
 	
 	@Override
 	public MsgProto getProto() {
-		return MsgProto.Login;
+		return MsgProto.Login_In;
 	}
 }

@@ -11,9 +11,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import sirius.proto.ProtoBuf;
 
-public class ChannelInit extends ChannelInitializer<SocketChannel> {
+public class ClientChannelInit extends ChannelInitializer<SocketChannel> {
 	
-	private static final Logger logger = LoggerFactory.getLogger(ChannelInit.class);
+	private static final Logger logger = LoggerFactory.getLogger(ClientChannelInit.class);
 	
 	@Override
 	public void initChannel(SocketChannel ch) {
@@ -25,7 +25,7 @@ public class ChannelInit extends ChannelInitializer<SocketChannel> {
 		//入口
 		pipeline.addLast("frameDecoder", new ProtobufVarint32FrameDecoder());
 		pipeline.addLast("decoder", new ProtobufDecoder(ProtoBuf.Message.getDefaultInstance()));
-		pipeline.addLast("handler", new ChannelInHandler());
+		pipeline.addLast("handler", new ClientChannelInHandler());
 		logger.info("Client:" + ch.remoteAddress() + "连接上");
 	}
 }

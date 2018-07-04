@@ -6,6 +6,7 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import sirius.channer.ChannelInit;
+import sirius.channer.ClientChannelInit;
 
 public class Start {
 	
@@ -17,7 +18,7 @@ public class Start {
 		EventLoopGroup workerGroup = new NioEventLoopGroup();
 		try {
 			ChannelFuture f1 = factory.createAccept(new ChannelInit(), bossGroup, workerGroup, 8080);
-			ChannelFuture f2 = factory.createConnect(new ChannelInit(), workerGroup, "127.0.0.1", 8080);
+			ChannelFuture f2 = factory.createConnect(new ClientChannelInit(), workerGroup, "127.0.0.1", 8080);
 //			f1.channel().closeFuture().sync();
 			Thread.currentThread().join();
 		} catch (InterruptedException e) {

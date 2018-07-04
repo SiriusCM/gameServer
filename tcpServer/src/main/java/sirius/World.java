@@ -1,10 +1,11 @@
 package sirius;
 
-import com.google.protobuf.Parser;
+import io.netty.channel.ChannelHandlerContext;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import sirius.handler.Handler;
 import sirius.proto.MsgProto;
+import sirius.sprite.Player;
 
 import java.util.HashMap;
 import java.util.List;
@@ -16,17 +17,15 @@ public final class World {
 	
 	private final ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
 	
-	private final Map<Integer, MsgProto> msgProtoMap = new HashMap<>();
+	private final Map<ChannelHandlerContext, Player> playerMap = new HashMap<>();
 	
-	private final Map<Parser, Integer> msgIdMap = new HashMap<>();
+	private final Map<Integer, MsgProto> idMsgMap = new HashMap<>();
+	
+	private final Map<Class, MsgProto> clazzMsgMap = new HashMap<>();
 	
 	private final Map<MsgProto, Handler> handlerMap = new HashMap<>();
 	
-	public World() {
-		for (MsgProto m : MsgProto.values()) {
-			msgProtoMap.put(m.getId(), m);
-			msgIdMap.put(m.getParser(), m.getId());
-		}
+	private World() {
 		List<Class> list = ClassUtil.getAllClassByInterface(Handler.class);
 		list.forEach(e -> {
 			try {
@@ -38,22 +37,30 @@ public final class World {
 				e1.printStackTrace();
 			}
 		});
+		for (MsgProto m : MsgProto.values()) {
+			idMsgMap.put(m.getId(), m);
+			clazzMsgMap.put(m.getClazz(), m);
+		}
 	}
 	
 	public ApplicationContext getApplicationContext() {
 		return applicationContext;
 	}
 	
+	public Map<ChannelHandlerContext, Player> getPlayerMap() {
+		return playerMap;
+	}
+	
 	public MsgProto getMsgProto(int msgId) {
-		if (msgProtoMap.containsKey(msgId)) {
-			return msgProtoMap.get(msgId);
+		if (idMsgMap.containsKey(msgId)) {
+			return idMsgMap.get(msgId);
 		}
 		return null;
 	}
 	
-	public Integer getMsgId(Parser parser) {
-		if (msgIdMap.containsKey(parser)) {
-			return msgIdMap.get(parser);
+	public MsgProto getMsgProto(Class clazz) {
+		if (clazzMsgMap.containsKey(clazz)) {
+			return clazzMsgMap.get(clazz);
 		}
 		return null;
 	}
