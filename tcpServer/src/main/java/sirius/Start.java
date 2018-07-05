@@ -3,17 +3,26 @@ package sirius;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import sirius.channer.ChannelInit;
 import sirius.channer.ClientChannelInit;
 
-public class Start {
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
+
+public class Start implements ServletContextListener {
 	
-	private static final Logger logger = LoggerFactory.getLogger(Start.class);
-	private static final TCPFactory factory = TCPFactory.getInstance();
+	@Override
+	public void contextInitialized(ServletContextEvent servletContextEvent) {
+		boot();
+	}
 	
-	public static void main(String[] args) {
+	@Override
+	public void contextDestroyed(ServletContextEvent servletContextEvent) {
+	
+	}
+	
+	public static void boot() {
+		TCPFactory factory = TCPFactory.getInstance();
 		EventLoopGroup bossGroup = new NioEventLoopGroup(1);
 		EventLoopGroup workerGroup = new NioEventLoopGroup();
 		try {
