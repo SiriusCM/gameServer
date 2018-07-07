@@ -15,8 +15,6 @@ public final class World {
 	
 	private static final World instance = new World();
 	
-	private final ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
-	
 	private final Map<ChannelHandlerContext, Player> playerMap = new HashMap<>();
 	
 	private final Map<Integer, MsgProto> idMsgMap = new HashMap<>();
@@ -41,10 +39,6 @@ public final class World {
 			idMsgMap.put(m.getId(), m);
 			clazzMsgMap.put(m.getClazz(), m);
 		}
-	}
-	
-	public ApplicationContext getApplicationContext() {
-		return applicationContext;
 	}
 	
 	public Map<ChannelHandlerContext, Player> getPlayerMap() {

@@ -1,4 +1,4 @@
-package sirius.channer;
+package sirius.channer.tcp;
 
 import com.google.protobuf.GeneratedMessageV3;
 import io.netty.channel.ChannelHandlerContext;
@@ -8,7 +8,7 @@ import sirius.proto.ProtoBuf;
 
 import java.util.List;
 
-public class ChannelOutHandler extends MessageToMessageEncoder<GeneratedMessageV3> {
+public class TcpOutHandler extends MessageToMessageEncoder<GeneratedMessageV3> {
 	
 	@Override
 	protected void encode(ChannelHandlerContext channelHandlerContext, GeneratedMessageV3 generatedMessageV3, List<Object> list) throws Exception {

@@ -1,4 +1,4 @@
-package sirius.channer;
+package sirius.channer.tcp;
 
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
@@ -14,9 +14,9 @@ import sirius.proto.protobuf.Login;
  * @author 高连棣
  * @date 2018/7/2 11:03
  */
-public class ClientChannelInHandler extends SimpleChannelInboundHandler<ProtoBuf.Message> {
+public class ClientTcpInHandler extends SimpleChannelInboundHandler<ProtoBuf.Message> {
 	
-	private static final Logger logger = LoggerFactory.getLogger(ClientChannelInHandler.class);
+	private static final Logger logger = LoggerFactory.getLogger(ClientTcpInHandler.class);
 	
 	@Override
 	public void channelActive(ChannelHandlerContext ctx) throws Exception {

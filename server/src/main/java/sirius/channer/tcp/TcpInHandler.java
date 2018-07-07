@@ -1,4 +1,4 @@
-package sirius.channer;
+package sirius.channer.tcp;
 
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
@@ -14,9 +14,9 @@ import sirius.sprite.Player;
  * @author 高连棣
  * @date 2018/7/2 11:03
  */
-public class ChannelInHandler extends SimpleChannelInboundHandler<ProtoBuf.Message> {
+public class TcpInHandler extends SimpleChannelInboundHandler<ProtoBuf.Message> {
 	
-	private static final Logger logger = LoggerFactory.getLogger(ChannelInHandler.class);
+	private static final Logger logger = LoggerFactory.getLogger(TcpInHandler.class);
 	
 	@Override
 	public void channelActive(ChannelHandlerContext ctx) throws Exception {

@@ -1,4 +1,4 @@
-package sirius.channer;
+package sirius.channer.tcp;
 
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
@@ -11,9 +11,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import sirius.proto.ProtoBuf;
 
-public class ChannelInit extends ChannelInitializer<SocketChannel> {
+public class TcpInit extends ChannelInitializer<SocketChannel> {
 	
-	private static final Logger logger = LoggerFactory.getLogger(ChannelInit.class);
+	private static final Logger logger = LoggerFactory.getLogger(TcpInit.class);
 	
 	@Override
 	public void initChannel(SocketChannel ch) {
@@ -21,10 +21,10 @@ public class ChannelInit extends ChannelInitializer<SocketChannel> {
 		//出口
 		pipeline.addLast("frameEncoder", new ProtobufVarint32LengthFieldPrepender());
 		pipeline.addLast("encoder", new ProtobufEncoder());
-		pipeline.addLast("wrap", new ChannelOutHandler());
+		pipeline.addLast("wrap", new TcpOutHandler());
 		//入口
 		pipeline.addLast("frameDecoder", new ProtobufVarint32FrameDecoder());
 		pipeline.addLast("decoder", new ProtobufDecoder(ProtoBuf.Message.getDefaultInstance()));
-		pipeline.addLast("handler", new ChannelInHandler());
+		pipeline.addLast("handler", new TcpInHandler());
 	}
 }
