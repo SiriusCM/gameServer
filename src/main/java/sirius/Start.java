@@ -5,7 +5,6 @@ import io.netty.channel.Channel;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.DatagramPacket;
-import io.netty.util.CharsetUtil;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import sirius.channer.tcp.ClientTcpInit;
@@ -13,6 +12,9 @@ import sirius.channer.tcp.TcpInit;
 import sirius.channer.udp.ClientUdpInHandler;
 import sirius.channer.udp.UdpInHandler;
 import sirius.factory.ServerFactory;
+import sirius.proto.MsgProto;
+import sirius.proto.ProtoBuf;
+import sirius.proto.protobuf.Match;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -65,9 +67,15 @@ public class Start implements ServletContextListener, Runnable {
 		try {
 			Channel channel0 = factory.createUdpServer(new UdpInHandler(), group, 9999);
 			Channel channel1 = factory.createUdpClient(new ClientUdpInHandler(), group);
-			//channel0.closeFuture().await();
 
-			channel1.writeAndFlush(new DatagramPacket(Unpooled.copiedBuffer("hello!!!", CharsetUtil.UTF_8),
+			Match.Position.Builder builder = Match.Position.newBuilder();
+			builder.setX(4);
+			builder.setY(3);
+			builder.setZ(14);
+			ProtoBuf.Message.Builder message = ProtoBuf.Message.newBuilder();
+			message.setId(MsgProto.Match_One.getId());
+			message.setData(builder.build().toByteString());
+			channel1.writeAndFlush(new DatagramPacket(Unpooled.copiedBuffer(message.build().toByteArray()),
 					new InetSocketAddress("127.0.0.1", 9999))).sync();
 			//channel1.closeFuture().await(15000);
 			channel0.closeFuture().await();

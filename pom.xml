@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>gao</groupId>
-    <artifactId>tcpServer</artifactId>
+    <artifactId>gameServer</artifactId>
     <version>1.0</version>
 
     <properties>

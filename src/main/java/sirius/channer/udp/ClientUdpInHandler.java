@@ -3,17 +3,22 @@ package sirius.channer.udp;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.socket.DatagramPacket;
-import io.netty.util.CharsetUtil;
+import sirius.World;
+import sirius.proto.MsgProto;
+import sirius.proto.ProtoBuf;
+import sirius.proto.protobuf.Match;
 
 public class ClientUdpInHandler extends SimpleChannelInboundHandler<DatagramPacket> {
 
-    @Override
-    protected void channelRead0(ChannelHandlerContext ctx, DatagramPacket msg) throws Exception {
-        String response = msg.content().toString(CharsetUtil.UTF_8);
-
-        if (response.startsWith("结果：")) {
-            System.out.println(response);
-            ctx.close();
-        }
-    }
+	@Override
+	protected void channelRead0(ChannelHandlerContext ctx, DatagramPacket msg) throws Exception {
+		World world = World.getInstance();
+		byte[] data = new byte[msg.content().readableBytes()];
+		msg.content().readBytes(data);
+		ProtoBuf.Message message = ProtoBuf.Message.parseFrom(data);
+		MsgProto msgProto = world.getMsgProto(message.getId());
+		Match.Position position = Match.Position.parseFrom(message.getData());
+		System.out.println("(" + position.getX() + "," + position.getY() + "," + position.getZ() + ")");
+		ctx.close();
+	}
 }
