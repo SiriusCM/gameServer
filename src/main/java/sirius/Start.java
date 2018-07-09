@@ -37,6 +37,7 @@ public class Start implements ServletContextListener, Runnable {
 	@Override
 	public void run() {
 		bootTcpServer();
+		//bootUdpServer();
 	}
 
 	public static void main(String[] args) {
