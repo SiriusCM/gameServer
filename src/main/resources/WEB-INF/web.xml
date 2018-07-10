@@ -7,7 +7,7 @@
          version="3.0">
     <display-name>Archetype Created Web Application</display-name>
     <welcome-file-list>
-        <welcome-file>/pages/index.jsp</welcome-file>
+        <welcome-file>/WEB-INF/pages/index.jsp</welcome-file>
     </welcome-file-list>
     <servlet>
         <servlet-name>spring</servlet-name>
@@ -22,14 +22,14 @@
         <servlet-name>spring</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
-    <listener>
-        <listener-class>sirius.Start</listener-class>
-    </listener>
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>classpath:applicationContext.xml</param-value>
     </context-param>
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+    <listener>
+        <listener-class>sirius.Start</listener-class>
     </listener>
 </web-app>

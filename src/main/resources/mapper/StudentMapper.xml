@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="Dao.StudentMapper">
-    <resultMap id="BaseResultMap" type="Entity.Student">
-        <id column="Uid" jdbcType="BINARY" property="uid" />
-        <result column="Name" jdbcType="VARCHAR" property="name" />
-        <result column="Age" jdbcType="INTEGER" property="age" />
-        <result column="ClassId" jdbcType="INTEGER" property="classid" />
+<mapper namespace="sirius.database.mysql.dao.StudentMapper">
+    <resultMap id="BaseResultMap" type="sirius.database.mysql.entity.Student">
+        <id column="Uid" jdbcType="BINARY" property="uid"/>
+        <result column="Name" jdbcType="VARCHAR" property="name"/>
+        <result column="Age" jdbcType="INTEGER" property="age"/>
+        <result column="ClassId" jdbcType="INTEGER" property="classid"/>
     </resultMap>
     <sql id="Base_Column_List">
         Uid, Name, Age, ClassId
     </sql>
     <select id="selectByPrimaryKey" parameterType="byte[]" resultMap="BaseResultMap">
         select
-        <include refid="Base_Column_List" />
+        <include refid="Base_Column_List"/>
         from student
         where Uid = #{uid,jdbcType=BINARY}
     </select>
-    <select id="selectByCondition" parameterType="Entity.Student" resultMap="BaseResultMap">
+    <select id="selectByCondition" parameterType="sirius.database.mysql.entity.Student" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List"/>
         from student
@@ -40,13 +40,13 @@
         delete from student
         where Uid = #{uid,jdbcType=BINARY}
     </delete>
-    <insert id="insert" parameterType="Entity.Student">
+    <insert id="insert" parameterType="sirius.database.mysql.entity.Student">
         insert into student (Uid, Name, Age,
         ClassId)
         values (#{uid,jdbcType=BINARY}, #{name,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER},
         #{classid,jdbcType=INTEGER})
     </insert>
-    <insert id="insertSelective" parameterType="Entity.Student">
+    <insert id="insertSelective" parameterType="sirius.database.mysql.entity.Student">
         insert into student
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="uid != null">
@@ -77,7 +77,7 @@
             </if>
         </trim>
     </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="Entity.Student">
+    <update id="updateByPrimaryKeySelective" parameterType="sirius.database.mysql.entity.Student">
         update student
         <set>
             <if test="name != null">
@@ -92,7 +92,7 @@
         </set>
         where Uid = #{uid,jdbcType=BINARY}
     </update>
-    <update id="updateByPrimaryKey" parameterType="Entity.Student">
+    <update id="updateByPrimaryKey" parameterType="sirius.database.mysql.entity.Student">
         update student
         set Name = #{name,jdbcType=VARCHAR},
         Age = #{age,jdbcType=INTEGER},

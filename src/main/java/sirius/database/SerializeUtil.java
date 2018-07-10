@@ -1,4 +1,4 @@
-package sirius.database.serialize;
+package sirius.database;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

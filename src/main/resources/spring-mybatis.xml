@@ -30,10 +30,10 @@
     </bean>
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
-        <property name="mapperLocations" value="classpath:mapper/StudentMapper.xml"/>
+        <property name="mapperLocations" value="classpath:mapper/*.xml"/>
     </bean>
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="Dao"/>
+        <property name="basePackage" value="sirius.database.mysql.dao"/>
     </bean>
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource"/>
