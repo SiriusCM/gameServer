@@ -7,6 +7,7 @@ import com.google.protobuf.Parser;
  * @date 2018/6/30 18:47
  */
 public enum MsgProto {
+	Message(0, sirius.proto.protobuf.Message.Data.class, sirius.proto.protobuf.Message.Data.parser()),
 	Login_In(1000, sirius.proto.protobuf.Login.Position.class, sirius.proto.protobuf.Login.Position.parser()),
 	Match_One(1015, sirius.proto.protobuf.Match.Position.class, sirius.proto.protobuf.Match.Position.parser());
 	

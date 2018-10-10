@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+option java_outer_classname = "Message";
+
+message Data{
+	string op = 1;
+	double x = 2;
+	double y = 3;
+}
