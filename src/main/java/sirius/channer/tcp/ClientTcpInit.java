@@ -19,11 +19,11 @@ public class ClientTcpInit extends ChannelInitializer<SocketChannel> {
 	public void initChannel(SocketChannel ch) {
 		ChannelPipeline pipeline = ch.pipeline();
 		//出口
-		pipeline.addLast("frameEncoder", new ProtobufVarint32LengthFieldPrepender());
+		//pipeline.addLast("frameEncoder", new ProtobufVarint32LengthFieldPrepender());
 		pipeline.addLast("encoder", new ProtobufEncoder());
 		pipeline.addLast("wrap", new TcpOutHandler());
 		//入口
-		pipeline.addLast("frameDecoder", new ProtobufVarint32FrameDecoder());
+		//pipeline.addLast("frameDecoder", new ProtobufVarint32FrameDecoder());
 		pipeline.addLast("decoder", new ProtobufDecoder(ProtoBuf.Message.getDefaultInstance()));
 		pipeline.addLast("handler", new ClientTcpInHandler());
 	}

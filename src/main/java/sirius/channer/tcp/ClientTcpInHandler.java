@@ -8,7 +8,6 @@ import org.slf4j.LoggerFactory;
 import sirius.World;
 import sirius.proto.MsgProto;
 import sirius.proto.ProtoBuf;
-import sirius.proto.protobuf.Message;
 
 /**
  * @author 高连棣
@@ -22,11 +21,6 @@ public class ClientTcpInHandler extends SimpleChannelInboundHandler<ProtoBuf.Mes
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         Channel incoming = ctx.channel();
         logger.info("Server:" + incoming.remoteAddress() + "已连接");
-        Message.Data.Builder builder = Message.Data.newBuilder();
-        builder.setOp("+");
-        builder.setX(12);
-        builder.setY(11);
-        ctx.writeAndFlush(builder.build());
     }
 
     @Override

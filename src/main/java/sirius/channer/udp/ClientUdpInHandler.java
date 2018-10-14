@@ -10,15 +10,15 @@ import sirius.proto.protobuf.Match;
 
 public class ClientUdpInHandler extends SimpleChannelInboundHandler<DatagramPacket> {
 
-	@Override
-	protected void channelRead0(ChannelHandlerContext ctx, DatagramPacket msg) throws Exception {
-		World world = World.getInstance();
-		byte[] data = new byte[msg.content().readableBytes()];
-		msg.content().readBytes(data);
-		ProtoBuf.Message message = ProtoBuf.Message.parseFrom(data);
-		MsgProto msgProto = world.getMsgProto(message.getId());
-		Match.Position position = Match.Position.parseFrom(message.getData());
-		System.out.println("(" + position.getX() + "," + position.getY() + "," + position.getZ() + ")");
-		ctx.close();
-	}
+    @Override
+    protected void channelRead0(ChannelHandlerContext ctx, DatagramPacket msg) throws Exception {
+        World world = World.getInstance();
+        byte[] data = new byte[msg.content().readableBytes()];
+        msg.content().readBytes(data);
+        ProtoBuf.Message message = ProtoBuf.Message.parseFrom(data);
+        MsgProto msgProto = world.getMsgProto(message.getId());
+        Match.Position position = Match.Position.parseFrom(message.getData());
+        System.out.println("(" + position.getX() + "," + position.getY() + "," + position.getZ() + ")");
+        ctx.close();
+    }
 }
