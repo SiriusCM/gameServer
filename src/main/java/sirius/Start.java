@@ -5,8 +5,10 @@ import io.netty.channel.Channel;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.DatagramPacket;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.stereotype.Component;
 import sirius.channer.tcp.ClientTcpInit;
 import sirius.channer.tcp.TcpInit;
 import sirius.channer.udp.ClientUdpInHandler;
@@ -20,18 +22,33 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import java.net.InetSocketAddress;
 
+@Component
 public class Start implements ServletContextListener, Runnable {
 	
 	public static final ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
 	
+	@Autowired
+	private ServerFactory factory;
+	
+	@Autowired
+	private TcpInit tcpInit;
+	
+	@Autowired
+	private ClientTcpInit clientTcpInit;
+	
+	@Autowired
+	private UdpInHandler udpInHandler;
+	
+	@Autowired
+	private ClientUdpInHandler clientUdpInHandler;
+	
 	@Override
 	public void contextInitialized(ServletContextEvent servletContextEvent) {
-		new Thread(this).start();
+		new Thread(applicationContext.getBean(Start.class)).start();
 	}
 	
 	@Override
 	public void contextDestroyed(ServletContextEvent servletContextEvent) {
-	
 	}
 	
 	@Override
@@ -41,17 +58,15 @@ public class Start implements ServletContextListener, Runnable {
 	}
 	
 	public static void main(String[] args) {
-		bootTcpServer();
-		//bootUdpServer();
+		new Thread(applicationContext.getBean(Start.class)).start();
 	}
 	
-	public static void bootTcpServer() {
-		ServerFactory factory = applicationContext.getBean(ServerFactory.class);
+	public void bootTcpServer() {
 		EventLoopGroup bossGroup = new NioEventLoopGroup(1);
 		EventLoopGroup workerGroup = new NioEventLoopGroup();
 		try {
-			Channel channel0 = factory.createTcpServer(new TcpInit(), bossGroup, workerGroup, 8888);
-			Channel channel1 = factory.createTcpClient(new ClientTcpInit(), workerGroup, "127.0.0.1", 8888);
+			Channel channel0 = factory.createTcpServer(tcpInit, bossGroup, workerGroup, 8888);
+			Channel channel1 = factory.createTcpClient(clientTcpInit, workerGroup, "127.0.0.1", 8888);
 			channel0.closeFuture().sync();
 			//Thread.currentThread().join();
 		} catch (InterruptedException e) {
@@ -62,12 +77,11 @@ public class Start implements ServletContextListener, Runnable {
 		}
 	}
 	
-	public static void bootUdpServer() {
-		ServerFactory factory = applicationContext.getBean(ServerFactory.class);
+	public void bootUdpServer() {
 		EventLoopGroup group = new NioEventLoopGroup();
 		try {
-			Channel channel0 = factory.createUdpServer(new UdpInHandler(), group, 9999);
-			Channel channel1 = factory.createUdpClient(new ClientUdpInHandler(), group);
+			Channel channel0 = factory.createUdpServer(udpInHandler, group, 9999);
+			Channel channel1 = factory.createUdpClient(clientUdpInHandler, group);
 			
 			Match.Position.Builder builder = Match.Position.newBuilder();
 			builder.setX(4);

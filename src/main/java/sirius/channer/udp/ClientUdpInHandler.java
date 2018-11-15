@@ -3,17 +3,21 @@ package sirius.channer.udp;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.socket.DatagramPacket;
-import sirius.Start;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import sirius.World;
 import sirius.proto.MsgRequest;
 import sirius.proto.ProtoBuf;
 import sirius.proto.protobuf.Match;
 
+@Component
 public class ClientUdpInHandler extends SimpleChannelInboundHandler<DatagramPacket> {
+	
+	@Autowired
+	private World world;
 	
 	@Override
 	protected void channelRead0(ChannelHandlerContext ctx, DatagramPacket msg) throws Exception {
-		World world = Start.applicationContext.getBean(World.class);
 		byte[] data = new byte[msg.content().readableBytes()];
 		msg.content().readBytes(data);
 		ProtoBuf.Message message = ProtoBuf.Message.parseFrom(data);

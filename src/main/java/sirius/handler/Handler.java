@@ -8,7 +8,7 @@ public interface Handler {
 	
 	Logger logger = Logger.getLogger(Handler.class);
 	
-	boolean handler(Player player, Object data) throws Exception;
+	boolean exe(Player player, Object data) throws Exception;
 	
 	MsgRequest getProto();
 }

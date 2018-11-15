@@ -7,7 +7,7 @@ import sirius.sprite.Player;
 
 public class ComputeHandler implements Handler {
     @Override
-    public boolean handler(Player player, Object data) throws Exception {
+    public boolean exe(Player player, Object data) throws Exception {
         Compute.Content content = (Compute.Content) data;
         String op = content.getOp();
         double x = content.getX();

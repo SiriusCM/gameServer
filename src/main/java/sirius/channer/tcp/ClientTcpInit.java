@@ -5,15 +5,19 @@ import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.handler.codec.protobuf.ProtobufDecoder;
 import io.netty.handler.codec.protobuf.ProtobufEncoder;
-import io.netty.handler.codec.protobuf.ProtobufVarint32FrameDecoder;
-import io.netty.handler.codec.protobuf.ProtobufVarint32LengthFieldPrepender;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import sirius.proto.ProtoBuf;
 
+@Component
 public class ClientTcpInit extends ChannelInitializer<SocketChannel> {
 	
 	private static final Logger logger = LoggerFactory.getLogger(ClientTcpInit.class);
+	
+	@Autowired
+	private ClientTcpInHandler clientTcpInHandler;
 	
 	@Override
 	public void initChannel(SocketChannel ch) {
@@ -25,6 +29,6 @@ public class ClientTcpInit extends ChannelInitializer<SocketChannel> {
 		//入口
 		//pipeline.addLast("frameDecoder", new ProtobufVarint32FrameDecoder());
 		pipeline.addLast("decoder", new ProtobufDecoder(ProtoBuf.Message.getDefaultInstance()));
-		pipeline.addLast("handler", new ClientTcpInHandler());
+		pipeline.addLast("handler", clientTcpInHandler);
 	}
 }

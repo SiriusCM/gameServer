@@ -13,7 +13,7 @@ import sirius.sprite.Player;
 public class LoginHandle implements Handler {
 	
 	@Override
-	public boolean handler(Player player, Object data) throws Exception {
+	public boolean exe(Player player, Object data) throws Exception {
 		Login.Position position = (Login.Position) data;
 		Match.Position.Builder builder = Match.Position.newBuilder();
 		builder.setX(position.getX());
