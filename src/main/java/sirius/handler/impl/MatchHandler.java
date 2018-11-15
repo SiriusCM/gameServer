@@ -1,7 +1,7 @@
 package sirius.handler.impl;
 
 import sirius.handler.Handler;
-import sirius.proto.MsgProto;
+import sirius.proto.MsgRequest;
 import sirius.proto.protobuf.Match;
 import sirius.sprite.Player;
 
@@ -14,7 +14,7 @@ public class MatchHandler implements Handler {
 	}
 	
 	@Override
-	public MsgProto getProto() {
-		return MsgProto.Match_One;
+	public MsgRequest getProto() {
+		return MsgRequest.Match_One;
 	}
 }

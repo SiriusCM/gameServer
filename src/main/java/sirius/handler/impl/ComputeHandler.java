@@ -1,7 +1,7 @@
 package sirius.handler.impl;
 
 import sirius.handler.Handler;
-import sirius.proto.MsgProto;
+import sirius.proto.MsgRequest;
 import sirius.proto.protobuf.Compute;
 import sirius.sprite.Player;
 
@@ -37,7 +37,7 @@ public class ComputeHandler implements Handler {
     }
 
     @Override
-    public MsgProto getProto() {
-        return MsgProto.Content;
+    public MsgRequest getProto() {
+        return MsgRequest.Content;
     }
 }

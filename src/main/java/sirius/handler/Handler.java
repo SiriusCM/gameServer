@@ -1,7 +1,7 @@
 package sirius.handler;
 
 import org.apache.log4j.Logger;
-import sirius.proto.MsgProto;
+import sirius.proto.MsgRequest;
 import sirius.sprite.Player;
 
 public interface Handler {
@@ -10,5 +10,5 @@ public interface Handler {
 	
 	boolean handler(Player player, Object data) throws Exception;
 	
-	MsgProto getProto();
+	MsgRequest getProto();
 }
