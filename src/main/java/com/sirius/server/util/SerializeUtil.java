@@ -1,4 +1,4 @@
-package com.sirius.server.tool;
+package com.sirius.server.util;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

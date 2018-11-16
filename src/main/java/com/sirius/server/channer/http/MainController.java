@@ -1,15 +1,19 @@
 package com.sirius.server.channer.http;
 
-import org.springframework.web.bind.annotation.GetMapping;
+import com.sirius.server.database.mapper.PlayerMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/RequestTest")
+@RequestMapping("/")
 public class MainController {
 
-	@GetMapping()
-	public String TestString() {
-		return "this is a test string. Time:2017-10-29 20:42:00";
-	}
+    @Autowired
+    private PlayerMapper playerMapper;
+
+    @RequestMapping("/")
+    public String hello() {
+        return "this is a test string. Time:2017-10-29 20:42:00";
+    }
 }

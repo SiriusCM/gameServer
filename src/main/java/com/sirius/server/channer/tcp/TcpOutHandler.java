@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Component
 public class TcpOutHandler extends MessageToMessageEncoder<GeneratedMessageV3> {
 	
 	@Override
