@@ -37,7 +37,6 @@ public class ClientTcpInHandler extends SimpleChannelInboundHandler<ProtoBuf.Mes
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, ProtoBuf.Message message) throws Exception {
         MsgRequest msgRequest = MsgRequest.getMsgRequest(message.getId());
-        Handler handler = (Handler) ServerApplication.getApplicationContext().getBean(msgRequest.getHandler());
-        handler.exe(world.getPlayerByCtx(ctx), msgRequest.getParser().parseFrom(message.getData()));
+        msgRequest.getHandler().exe(world.getPlayerByCtx(ctx), msgRequest.getParser().parseFrom(message.getData()));
     }
 }
