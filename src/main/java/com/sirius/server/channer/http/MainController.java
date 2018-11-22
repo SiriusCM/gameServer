@@ -1,40 +1,38 @@
 package com.sirius.server.channer.http;
 
-import com.sirius.server.database.entity.Player;
-import com.sirius.server.database.mapper.PlayerMapper;
+import com.sirius.server.database.data.NewsData;
+import com.sirius.server.database.service.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Queue;
 
 @RestController
 public class MainController {
 	
 	@Autowired
-	private PlayerMapper playerMapper;
+	private NewsService newsService;
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView index() {
 		return new ModelAndView("index.html");
 	}
 	
-	@RequestMapping(value = "/hello", method = RequestMethod.GET)
-	public String sayHello(int id, String name) {
-		return "id:" + id + name;
+	@RequestMapping(value = "/getNews", method = RequestMethod.GET)
+	public Queue<NewsData> getNews() {
+		return newsService.getNews();
 	}
 	
-	@ResponseBody
-	@RequestMapping(value = "/selectPlayer", method = RequestMethod.POST)
-	public Map<String, String> selectPlayer(int id) {
-		Player player = playerMapper.selectByPrimaryKey(id);
-		Map<String, String> map = new HashMap<>();
-		map.put("id", String.valueOf(player.getId()));
-		map.put("name", player.getName());
-		return map;
+	@RequestMapping(value = "/addNews", method = RequestMethod.POST)
+	public NewsData addNews(String title, String content) {
+		NewsData data = new NewsData();
+		data.setTitle(title);
+		data.setContent(content);
+		data.setTime(System.currentTimeMillis());
+		newsService.insert(data);
+		return data;
 	}
 }
