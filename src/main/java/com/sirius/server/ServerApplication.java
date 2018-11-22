@@ -29,7 +29,7 @@ public class ServerApplication {
 		EventLoopGroup workerGroup = new NioEventLoopGroup();
 		try {
 			ServerFactory factory = applicationContext.getBean(ServerFactory.class);
-			Channel channel0 = factory.createTcpServer(new TcpInit(), bossGroup, workerGroup, 5555, 128);
+			Channel channel0 = factory.createTcpServer(new TcpInit(), bossGroup, workerGroup, 1026, 128);
 			Channel channel1 = factory.createUdpServer(new UdpInHandler(), workerGroup, 9999, true);
 			Channel channel2 = factory.createTcpClient(new ClientTcpInit(), workerGroup, "127.0.0.1", 1026);
 			Channel channel3 = factory.createUdpClient(new ClientUdpInHandler(), workerGroup, true);
