@@ -35,6 +35,7 @@ public class NewsModel implements Model {
     }
 
     public void deleteBefore() {
+        queue.clear();
         NewsExample example = new NewsExample();
         example.createCriteria().andTimeLessThan(new Date());
         newsMapper.deleteByExample(example);
