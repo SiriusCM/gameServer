@@ -10,29 +10,30 @@ import java.util.Enumeration;
 import java.util.List;
 
 public class ClassUtil {
-	private static List<Class> allList = new ArrayList<>();
 	
-	static {
+	public static List<Class> getAllClassByInterface(Class clazz) {
+		List<Class> list = new ArrayList<>();
+		getAllClass().forEach(e -> {
+			if (!e.isInterface() && clazz.isAssignableFrom(e)) {
+				list.add(e);
+			}
+		});
+		return list;
+	}
+	
+	public static List<Class> getAllClass() {
+		List<Class> list = new ArrayList<>();
 		try {
 			ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
 			String packagename = ServerApplication.class.getPackage().getName();
 			Enumeration<URL> enumeration = classLoader.getResources(packagename.replace('.', '/'));
 			while (enumeration.hasMoreElements()) {
 				URL url = enumeration.nextElement();
-				allList.addAll(loadClass(new File(url.getFile()), packagename));
+				list.addAll(loadClass(new File(url.getFile()), packagename));
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}
-	
-	public static List<Class> getAllClassByInterface(Class clazz) {
-		List<Class> list = new ArrayList<>();
-		allList.forEach(e -> {
-			if (!e.isInterface() && clazz.isAssignableFrom(e)) {
-				list.add(e);
-			}
-		});
 		return list;
 	}
 	

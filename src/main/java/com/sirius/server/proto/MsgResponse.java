@@ -6,12 +6,9 @@ import com.sirius.server.proto.protobuf.Compute;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * create by gaoliandi on 2018/11/15
- **/
 public enum MsgResponse {
 	
-	Result(102, Compute.Result.class);
+	Result(Compute.Result.class, 102);
 	
 	private static final Map<Class, MsgResponse> clazzMsgMap = new HashMap<>();
 	
@@ -28,20 +25,20 @@ public enum MsgResponse {
 		return null;
 	}
 	
-	private int id;
-	
 	private Class clazz;
 	
-	MsgResponse(int id, Class clazz) {
-		this.id = id;
-		this.clazz = clazz;
-	}
+	private int id;
 	
-	public int getId() {
-		return id;
+	MsgResponse(Class clazz, int id) {
+		this.clazz = clazz;
+		this.id = id;
 	}
 	
 	public Class getClazz() {
 		return clazz;
+	}
+	
+	public int getId() {
+		return id;
 	}
 }

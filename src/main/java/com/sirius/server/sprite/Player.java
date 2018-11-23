@@ -14,9 +14,10 @@ public class Player extends Sprite {
 	}
 	
 	public void sendMsg(GeneratedMessageV3 messageV3) {
-		if (ctx == null) {
-			return;
-		}
 		ctx.writeAndFlush(messageV3);
+	}
+	
+	public ChannelHandlerContext getCtx() {
+		return ctx;
 	}
 }
