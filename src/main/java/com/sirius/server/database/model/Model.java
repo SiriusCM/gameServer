@@ -1,6 +1,11 @@
 package com.sirius.server.database.model;
 
-public interface Model {
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-    void init();
+public interface Model {
+	
+	Logger logger = LoggerFactory.getLogger(Model.class);
+	
+	void init();
 }

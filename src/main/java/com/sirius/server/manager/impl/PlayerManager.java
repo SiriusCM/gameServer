@@ -8,6 +8,6 @@ public class PlayerManager implements Manager {
 	
 	@Override
 	public void init() {
-	
+		logger.info("PlayerManager init");
 	}
 }

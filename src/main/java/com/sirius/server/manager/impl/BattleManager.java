@@ -8,6 +8,6 @@ public class BattleManager implements Manager {
 	
 	@Override
 	public void init() {
-	
+		logger.info("BattleManager init");
 	}
 }

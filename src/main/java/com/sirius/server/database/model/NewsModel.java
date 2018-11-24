@@ -14,30 +14,31 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 @Service
 public class NewsModel implements Model {
-
-    private Queue<NewsData> queue = new ConcurrentLinkedQueue<>();
-
-    @Autowired
-    private NewsMapper newsMapper;
-
-    public void init() {
-        List<News> list = newsMapper.selectByExample(null);
-        list.forEach(news -> queue.offer(new NewsData(news)));
-    }
-
-    public Queue<NewsData> getNews() {
-        return queue;
-    }
-
-    public void insert(NewsData data) {
-        queue.add(data);
-        newsMapper.insert(data.toNews());
-    }
-
-    public void deleteBefore() {
-        queue.clear();
-        NewsExample example = new NewsExample();
-        example.createCriteria().andTimeLessThan(new Date());
-        newsMapper.deleteByExample(example);
-    }
+	
+	private Queue<NewsData> queue = new ConcurrentLinkedQueue<>();
+	
+	@Autowired
+	private NewsMapper newsMapper;
+	
+	public void init() {
+		List<News> list = newsMapper.selectByExample(null);
+		list.forEach(news -> queue.offer(new NewsData(news)));
+		logger.info("NewsMode init");
+	}
+	
+	public Queue<NewsData> getNews() {
+		return queue;
+	}
+	
+	public void insert(NewsData data) {
+		queue.add(data);
+		newsMapper.insert(data.toNews());
+	}
+	
+	public void deleteBefore() {
+		queue.clear();
+		NewsExample example = new NewsExample();
+		example.createCriteria().andTimeLessThan(new Date());
+		newsMapper.deleteByExample(example);
+	}
 }

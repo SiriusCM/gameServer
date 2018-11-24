@@ -17,6 +17,7 @@ public class QuartzManager implements Manager {
 		} catch (SchedulerException e) {
 			e.printStackTrace();
 		}
+		logger.info("QuartzManager init");
 	}
 	
 	public void createJob(Scheduler scheduler, String jobName, String cronExpression, Class<? extends Job> classs) throws SchedulerException {
