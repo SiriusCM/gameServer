@@ -1,4 +1,4 @@
-package com.sirius.server.sprite.monster.animal;
+package com.sirius.server.sprite.monster;
 
 import com.sirius.server.sprite.Sprite;
 

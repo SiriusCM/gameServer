@@ -1,6 +1,6 @@
-package com.sirius.server.sprite.monster.animal.sub;
+package com.sirius.server.sprite.monster.animal;
 
-import com.sirius.server.sprite.monster.animal.Animal;
+import com.sirius.server.sprite.monster.Animal;
 
 /**
  * @author 高连棣
