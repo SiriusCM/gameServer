@@ -10,4 +10,9 @@ public class PlayerManager implements Manager {
 	public void init() {
 		logger.info("PlayerManager init");
 	}
+
+	@Override
+	public void destroy() {
+		logger.info("PlayerManager destroy");
+	}
 }

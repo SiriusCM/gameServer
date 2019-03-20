@@ -8,4 +8,6 @@ public interface Model {
 	Logger logger = LoggerFactory.getLogger(Model.class);
 	
 	void init();
+
+	void destroy();
 }

@@ -1,7 +1,7 @@
 package com.sirius.server.quartz;
 
 import com.sirius.server.ServerApplication;
-import com.sirius.server.database.model.NewsModel;
+import com.sirius.server.database.model.impl.NewsModel;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;

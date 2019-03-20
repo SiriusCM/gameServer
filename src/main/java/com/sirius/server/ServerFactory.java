@@ -11,66 +11,53 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import org.springframework.stereotype.Component;
 
+import java.net.Inet4Address;
+import java.net.UnknownHostException;
+
 @Component
 public class ServerFactory {
-	
-	public Channel createTcpServer(ChannelInboundHandlerAdapter adapter, EventLoopGroup bossGroup, EventLoopGroup workerGroup, int port, int so_backlog) {
-		Channel channel = null;
-		try {
-			ServerBootstrap bootstrap = new ServerBootstrap();
-			bootstrap.group(bossGroup, workerGroup)
-					.channel(NioServerSocketChannel.class)
-					.childHandler(adapter)
-					.option(ChannelOption.SO_BACKLOG, so_backlog)
-					.childOption(ChannelOption.SO_KEEPALIVE, true);
-			channel = bootstrap.bind(port).sync().channel();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+
+	public Channel createTcpServer(ChannelInboundHandlerAdapter adapter, EventLoopGroup bossGroup, EventLoopGroup workerGroup, int port, int so_backlog) throws InterruptedException, UnknownHostException {
+		ServerBootstrap bootstrap = new ServerBootstrap();
+		bootstrap.group(bossGroup, workerGroup)
+				.channel(NioServerSocketChannel.class)
+				.childHandler(adapter)
+				.option(ChannelOption.SO_BACKLOG, so_backlog)
+				.childOption(ChannelOption.SO_KEEPALIVE, true);
+		Channel channel = bootstrap.bind(port).sync().channel();
+		String host = Inet4Address.getLocalHost().getHostAddress();
+		ServerApplication.getZkClient().createEphemeralSequential("/tcp/node", host + ":" + port);
 		return channel;
 	}
-	
-	public Channel createTcpClient(ChannelInboundHandlerAdapter adapter, EventLoopGroup group, String host, int port) {
-		Channel channel = null;
-		try {
-			Bootstrap bootstrap = new Bootstrap();
-			bootstrap.group(group)
-					.channel(NioSocketChannel.class)
-					.handler(adapter);
-			channel = bootstrap.connect(host, port).sync().channel();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+
+	public Channel createUdpServer(ChannelInboundHandlerAdapter adapter, EventLoopGroup group, int port, boolean so_broadcast) throws InterruptedException, UnknownHostException {
+		Bootstrap bootstrap = new Bootstrap();
+		bootstrap.group(group)
+				.channel(NioDatagramChannel.class)
+				.option(ChannelOption.SO_BROADCAST, so_broadcast)
+				.handler(adapter);
+		Channel channel = bootstrap.bind(port).sync().channel();
+		String host = Inet4Address.getLocalHost().getHostAddress();
+		ServerApplication.getZkClient().createEphemeralSequential("/udp/node", host + ":" + port);
 		return channel;
 	}
-	
-	public Channel createUdpServer(ChannelInboundHandlerAdapter adapter, EventLoopGroup group, int port, boolean so_broadcast) {
-		Channel channel = null;
-		try {
-			Bootstrap bootstrap = new Bootstrap();
-			bootstrap.group(group)
-					.channel(NioDatagramChannel.class)
-					.option(ChannelOption.SO_BROADCAST, so_broadcast)
-					.handler(adapter);
-			channel = bootstrap.bind(port).sync().channel();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+
+	public Channel createTcpClient(ChannelInboundHandlerAdapter adapter, EventLoopGroup group, String host, int port) throws InterruptedException {
+		Bootstrap bootstrap = new Bootstrap();
+		bootstrap.group(group)
+				.channel(NioSocketChannel.class)
+				.handler(adapter);
+		Channel channel = bootstrap.connect(host, port).sync().channel();
 		return channel;
 	}
-	
-	public Channel createUdpClient(ChannelInboundHandlerAdapter adapter, EventLoopGroup group, boolean so_broadcast) {
-		Channel channel = null;
-		try {
-			Bootstrap bootstrap = new Bootstrap();
-			bootstrap.group(group)
-					.channel(NioDatagramChannel.class)
-					.option(ChannelOption.SO_BROADCAST, so_broadcast)
-					.handler(adapter);
-			channel = bootstrap.bind(0).sync().channel();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+
+	public Channel createUdpClient(ChannelInboundHandlerAdapter adapter, EventLoopGroup group, boolean so_broadcast) throws InterruptedException {
+		Bootstrap bootstrap = new Bootstrap();
+		bootstrap.group(group)
+				.channel(NioDatagramChannel.class)
+				.option(ChannelOption.SO_BROADCAST, so_broadcast)
+				.handler(adapter);
+		Channel channel = bootstrap.bind(0).sync().channel();
 		return channel;
 	}
 }

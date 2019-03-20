@@ -19,7 +19,12 @@ public class QuartzManager implements Manager {
 		}
 		logger.info("QuartzManager init");
 	}
-	
+
+	@Override
+	public void destroy() {
+		logger.info("QuartzManager destroy");
+	}
+
 	public void createJob(Scheduler scheduler, String jobName, String cronExpression, Class<? extends Job> classs) throws SchedulerException {
 		JobKey jobKey = new JobKey(jobName, Scheduler.DEFAULT_GROUP);
 		if (scheduler.getJobDetail(jobKey) != null) {

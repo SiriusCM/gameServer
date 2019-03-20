@@ -10,4 +10,9 @@ public class BattleManager implements Manager {
 	public void init() {
 		logger.info("BattleManager init");
 	}
+
+	@Override
+	public void destroy() {
+		logger.info("BattleManager destroy");
+	}
 }

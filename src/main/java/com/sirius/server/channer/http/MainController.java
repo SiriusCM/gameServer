@@ -1,7 +1,7 @@
 package com.sirius.server.channer.http;
 
 import com.sirius.server.database.data.NewsData;
-import com.sirius.server.database.model.NewsModel;
+import com.sirius.server.database.model.impl.NewsModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
