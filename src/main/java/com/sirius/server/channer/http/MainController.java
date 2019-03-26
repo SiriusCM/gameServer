@@ -11,12 +11,13 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.Queue;
 
 @RestController
+@RequestMapping("/")
 public class MainController {
 
     @Autowired
     private NewsModel newsModel;
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @RequestMapping(value = "/index", method = RequestMethod.GET)
     public ModelAndView index() {
         return new ModelAndView("index.html");
     }

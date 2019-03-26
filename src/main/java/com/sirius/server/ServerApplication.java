@@ -7,19 +7,18 @@ import com.sirius.server.manager.Manager;
 import io.netty.channel.Channel;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
-import org.I0Itec.zkclient.ZkClient;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.ApplicationContext;
 
 @SpringBootApplication
+@EnableEurekaClient
 @MapperScan("com.sirius.server.database.mapper")
 public class ServerApplication {
 
 	private static ApplicationContext applicationContext;
-
-	private static ZkClient zkClient = new ZkClient("127.0.0.1:2181", 5000);
 
 	public static void main(String[] args) throws Exception {
 		applicationContext = SpringApplication.run(ServerApplication.class, args);
@@ -37,10 +36,6 @@ public class ServerApplication {
 			workerGroup.shutdownGracefully();
 			bossGroup.shutdownGracefully();
 		}
-	}
-
-	public static ZkClient getZkClient() {
-		return zkClient;
 	}
 
 	public static ApplicationContext getApplicationContext() {

@@ -11,7 +11,6 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import org.springframework.stereotype.Component;
 
-import java.net.Inet4Address;
 import java.net.UnknownHostException;
 
 @Component
@@ -25,8 +24,6 @@ public class ServerFactory {
 				.option(ChannelOption.SO_BACKLOG, so_backlog)
 				.childOption(ChannelOption.SO_KEEPALIVE, true);
 		Channel channel = bootstrap.bind(port).sync().channel();
-		String host = Inet4Address.getLocalHost().getHostAddress();
-		ServerApplication.getZkClient().createEphemeralSequential("/tcp/node", host + ":" + port);
 		return channel;
 	}
 
@@ -37,8 +34,6 @@ public class ServerFactory {
 				.option(ChannelOption.SO_BROADCAST, so_broadcast)
 				.handler(adapter);
 		Channel channel = bootstrap.bind(port).sync().channel();
-		String host = Inet4Address.getLocalHost().getHostAddress();
-		ServerApplication.getZkClient().createEphemeralSequential("/udp/node", host + ":" + port);
 		return channel;
 	}
 
