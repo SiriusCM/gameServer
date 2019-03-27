@@ -10,8 +10,11 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Bean;
+import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
 @EnableEurekaClient
@@ -36,6 +39,12 @@ public class ServerApplication {
 			workerGroup.shutdownGracefully();
 			bossGroup.shutdownGracefully();
 		}
+	}
+
+	@LoadBalanced
+	@Bean
+	public RestTemplate rest() {
+		return new RestTemplate();
 	}
 
 	public static ApplicationContext getApplicationContext() {
