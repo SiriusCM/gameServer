@@ -1,7 +1,7 @@
 package com.sirius.server.quartz;
 
 import com.sirius.server.ServerApplication;
-import com.sirius.server.manager.impl.NewsService;
+import com.sirius.server.manager.impl.NewsIService;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
@@ -14,7 +14,7 @@ public class Day0ClockQuartz implements Job {
 
     @Override
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
-        NewsService newsManager = ServerApplication.getApplicationContext().getBean(NewsService.class);
+        NewsIService newsManager = ServerApplication.getApplicationContext().getBean(NewsIService.class);
         newsManager.deleteBefore();
     }
 }

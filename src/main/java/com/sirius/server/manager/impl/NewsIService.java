@@ -3,16 +3,17 @@ package com.sirius.server.manager.impl;
 import com.sirius.server.database.entity.News;
 import com.sirius.server.database.entity.NewsExample;
 import com.sirius.server.database.mapper.NewsMapper;
-import com.sirius.server.manager.Service;
+import com.sirius.server.manager.IService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-@org.springframework.stereotype.Service
-public class NewsService implements Service {
+@Service
+public class NewsIService implements IService {
 
     private Queue<News> queue = new ConcurrentLinkedQueue<>();
 

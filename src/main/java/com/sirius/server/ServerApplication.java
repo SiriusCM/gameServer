@@ -2,7 +2,7 @@ package com.sirius.server;
 
 import com.sirius.server.channer.tcp.TcpInit;
 import com.sirius.server.channer.udp.UdpInHandler;
-import com.sirius.server.manager.Service;
+import com.sirius.server.manager.IService;
 import io.netty.channel.Channel;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -27,7 +27,7 @@ public class ServerApplication {
         try {
             Channel channel0 = factory.createTcpServer(new TcpInit(), bossGroup, workerGroup, 5555, 128);
             Channel channel1 = factory.createUdpServer(new UdpInHandler(), workerGroup, 6666, true);
-            applicationContext.getBeansOfType(Service.class).values().forEach(e -> e.init());
+            applicationContext.getBeansOfType(IService.class).values().forEach(e -> e.init());
             Runtime.getRuntime().addShutdownHook(new Thread(new WorldDestroy()));
             Thread.currentThread().join();
         } finally {

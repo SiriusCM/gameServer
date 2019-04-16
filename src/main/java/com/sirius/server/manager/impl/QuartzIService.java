@@ -1,12 +1,13 @@
 package com.sirius.server.manager.impl;
 
-import com.sirius.server.manager.Service;
+import com.sirius.server.manager.IService;
 import com.sirius.server.quartz.Day0ClockQuartz;
 import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
+import org.springframework.stereotype.Service;
 
-@org.springframework.stereotype.Service
-public class QuartzService implements Service {
+@Service
+public class QuartzIService implements IService {
     @Override
     public void init() {
         try {
@@ -16,12 +17,12 @@ public class QuartzService implements Service {
         } catch (SchedulerException e) {
             e.printStackTrace();
         }
-        logger.info("QuartzService init");
+        logger.info("QuartzIService init");
     }
 
     @Override
     public void destroy() {
-        logger.info("QuartzService destroy");
+        logger.info("QuartzIService destroy");
     }
 
     public void createJob(Scheduler scheduler, String jobName, String cronExpression, Class<? extends Job> classs) throws SchedulerException {
