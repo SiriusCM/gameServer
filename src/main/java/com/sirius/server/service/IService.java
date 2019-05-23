@@ -1,4 +1,4 @@
-package com.sirius.server.manager;
+package com.sirius.server.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

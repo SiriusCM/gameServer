@@ -1,7 +1,7 @@
 package com.sirius.server.channer.http;
 
 import com.sirius.server.database.entity.News;
-import com.sirius.server.manager.impl.NewsIService;
+import com.sirius.server.service.impl.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,7 +16,7 @@ import java.util.Queue;
 public class DealController {
 
     @Autowired
-    private NewsIService newsService;
+    private NewsService newsService;
 
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public ModelAndView index() {

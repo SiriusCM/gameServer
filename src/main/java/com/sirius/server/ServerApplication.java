@@ -2,7 +2,7 @@ package com.sirius.server;
 
 import com.sirius.server.channer.tcp.TcpInit;
 import com.sirius.server.channer.udp.UdpInHandler;
-import com.sirius.server.manager.IService;
+import com.sirius.server.service.IService;
 import io.netty.channel.Channel;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;

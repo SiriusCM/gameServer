@@ -1,6 +1,6 @@
 package com.sirius.server;
 
-import com.sirius.server.manager.IService;
+import com.sirius.server.service.IService;
 
 public class WorldDestroy implements Runnable {
     @Override
