@@ -6,7 +6,4 @@ package com.sirius.server.service;
  */
 public interface IService {
 
-    void init();
-
-    void destroy();
 }

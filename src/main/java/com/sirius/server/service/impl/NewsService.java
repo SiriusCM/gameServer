@@ -1,5 +1,6 @@
 package com.sirius.server.service.impl;
 
+import com.sirius.server.annotation.Init;
 import com.sirius.server.database.entity.News;
 import com.sirius.server.database.entity.NewsExample;
 import com.sirius.server.database.mapper.NewsMapper;
@@ -24,15 +25,10 @@ public class NewsService implements IService {
     @Autowired
     private NewsMapper newsMapper;
 
-    @Override
+    @Init(level = 5)
     public void init() {
         List<News> list = newsMapper.selectByExample(null);
         list.forEach(news -> queue.offer(news));
-    }
-
-    @Override
-    public void destroy() {
-
     }
 
     public Queue<News> getNews() {
@@ -44,6 +40,7 @@ public class NewsService implements IService {
         newsMapper.insert(data);
     }
 
+    //@Schedule(value = "0/5 * * * * ?")
     public void deleteBefore() {
         queue.clear();
         NewsExample example = new NewsExample();

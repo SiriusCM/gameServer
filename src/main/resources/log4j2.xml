@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="INFO">
+    <Loggers>
+        <Root level="debug">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="File"/>
+        </Root>
+        <Logger name="Main" level="info">
+            <AppenderRef ref="main"/>
+        </Logger>
+        <Logger name="World" level="info">
+            <AppenderRef ref="world"/>
+        </Logger>
+    </Loggers>
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT" follow="true">
+            <PatternLayout>
+                <pattern>[%-5p] %d %c - %m%n</pattern>
+            </PatternLayout>
+        </Console>
+        <RollingRandomAccessFile>
+            <name>File</name>
+            <fileName>../${sys:logFileName}.log</fileName>
+            <filePattern>../${sys:logFileName}-%d{yyyy-MM-dd}.log</filePattern>
+            <PatternLayout>
+                <charset>UTF-8</charset>
+                <pattern>[%-5p] %d %c - %m%n</pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy>
+                    <interval>1</interval>
+                    <modulate>true</modulate>
+                </TimeBasedTriggeringPolicy>
+            </Policies>
+            <DefaultRolloverStrategy>
+                <max>20</max>
+                <fileIndex>max</fileIndex>
+            </DefaultRolloverStrategy>
+        </RollingRandomAccessFile>
+        <RollingRandomAccessFile>
+            <name>Main</name>
+            <fileName>../${sys:logFileName}.log</fileName>
+            <filePattern>../${sys:logFileName}-%d{yyyy-MM-dd}.log</filePattern>
+            <PatternLayout>
+                <charset>UTF-8</charset>
+                <pattern>[%-5p] %d %c - %m%n</pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy>
+                    <interval>1</interval>
+                    <modulate>true</modulate>
+                </TimeBasedTriggeringPolicy>
+            </Policies>
+            <DefaultRolloverStrategy>
+                <max>20</max>
+                <fileIndex>max</fileIndex>
+            </DefaultRolloverStrategy>
+        </RollingRandomAccessFile>
+        <RollingRandomAccessFile>
+            <name>World</name>
+            <fileName>../${sys:logFileName}.log</fileName>
+            <filePattern>../${sys:logFileName}-%d{yyyy-MM-dd}.log</filePattern>
+            <PatternLayout>
+                <charset>UTF-8</charset>
+                <pattern>[%-5p] %d %c - %m%n</pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy>
+                    <interval>1</interval>
+                    <modulate>true</modulate>
+                </TimeBasedTriggeringPolicy>
+            </Policies>
+            <DefaultRolloverStrategy>
+                <max>20</max>
+                <fileIndex>max</fileIndex>
+            </DefaultRolloverStrategy>
+        </RollingRandomAccessFile>
+    </Appenders>
+</Configuration>

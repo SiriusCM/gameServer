@@ -12,4 +12,6 @@ import java.lang.annotation.*;
 public @interface Schedule {
 
     String value();
+
+    String[] params() default {};
 }

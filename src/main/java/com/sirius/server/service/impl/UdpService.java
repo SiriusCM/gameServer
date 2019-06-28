@@ -1,10 +1,11 @@
-package com.sirius.server.util;
+package com.sirius.server.service.impl;
 
 import com.google.protobuf.GeneratedMessageV3;
 import com.sirius.server.proto.MsgResponse;
 import com.sirius.server.proto.ProtoBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.socket.DatagramPacket;
+import org.springframework.stereotype.Service;
 
 import java.net.InetSocketAddress;
 
@@ -12,7 +13,8 @@ import java.net.InetSocketAddress;
  * @Date:2019/6/28 17:37
  * @Author:高连棣
  */
-public class UdpUtil {
+@Service
+public class UdpService {
 
     public static ProtoBuf.Message wrapMsg(GeneratedMessageV3 messageV3) {
         ProtoBuf.Message.Builder builder = ProtoBuf.Message.newBuilder();

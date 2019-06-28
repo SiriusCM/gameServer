@@ -1,15 +1,22 @@
-package com.sirius.server.util;
+package com.sirius.server.service.impl;
+
+import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.text.SimpleDateFormat;
 
 /**
  * @Date:2019/6/28 17:37
  * @Author:高连棣
  */
-public class SerializeUtil {
+@Service
+public class SerializeService {
+
+    public static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
     public static byte[] serialize(Object object) {
         try (ByteArrayOutputStream baos = new ByteArrayOutputStream();
              ObjectOutputStream oos = new ObjectOutputStream(baos)) {

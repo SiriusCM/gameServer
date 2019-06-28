@@ -3,7 +3,7 @@ package com.sirius.server.channer.udp;
 import com.sirius.server.proto.MsgResponse;
 import com.sirius.server.proto.ProtoBuf;
 import com.sirius.server.proto.protobuf.Compute;
-import com.sirius.server.util.UdpUtil;
+import com.sirius.server.service.impl.UdpService;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.socket.DatagramPacket;
@@ -29,6 +29,6 @@ public class UdpInHandler extends SimpleChannelInboundHandler<DatagramPacket> {
         ProtoBuf.Message.Builder builder1 = ProtoBuf.Message.newBuilder();
         builder1.setId(MsgResponse.getMsgResponse(result.getClass()).getId());
         builder1.setData(result.toByteString());
-        ctx.writeAndFlush(UdpUtil.wrapMsg(msg.sender(), builder1.build())).sync();
+        ctx.writeAndFlush(UdpService.wrapMsg(msg.sender(), builder1.build())).sync();
     }
 }
