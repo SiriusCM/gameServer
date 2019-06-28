@@ -1,8 +1,8 @@
 package com.sirius.server.event;
 
 /**
- * @author 高连棣
- * @date 2018/7/2 16:00
+ * @Date:2019/6/28 17:37
+ * @Author:高连棣
  */
 public abstract class Event extends Throwable {
 

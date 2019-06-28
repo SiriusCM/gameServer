@@ -3,8 +3,8 @@ package com.sirius.server.sprite.monster.animal;
 import com.sirius.server.sprite.monster.Animal;
 
 /**
- * @author 高连棣
- * @date 2018/7/2 16:10
+ * @Date:2019/6/28 17:37
+ * @Author:高连棣
  */
 public class Wolf extends Animal {
 	@Override

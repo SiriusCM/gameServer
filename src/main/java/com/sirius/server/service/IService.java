@@ -1,13 +1,12 @@
 package com.sirius.server.service;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
+/**
+ * @Date:2019/6/28 17:37
+ * @Author:高连棣
+ */
 public interface IService {
 
-	Logger logger = LoggerFactory.getLogger(IService.class);
+    void init();
 
-	void init();
-
-	void destroy();
+    void destroy();
 }

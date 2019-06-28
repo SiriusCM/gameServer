@@ -7,12 +7,12 @@ import com.sirius.server.util.UdpUtil;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.socket.DatagramPacket;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
+/**
+ * @Date:2019/6/28 17:37
+ * @Author:高连棣
+ */
 public class UdpInHandler extends SimpleChannelInboundHandler<DatagramPacket> {
-
-    private Logger logger = LoggerFactory.getLogger(UdpInHandler.class);
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, DatagramPacket msg) throws Exception {
@@ -29,7 +29,6 @@ public class UdpInHandler extends SimpleChannelInboundHandler<DatagramPacket> {
         ProtoBuf.Message.Builder builder1 = ProtoBuf.Message.newBuilder();
         builder1.setId(MsgResponse.getMsgResponse(result.getClass()).getId());
         builder1.setData(result.toByteString());
-
-        UdpUtil.sendMsg(ctx.channel(), msg.sender(), builder1.build());
+        ctx.writeAndFlush(UdpUtil.wrapMsg(msg.sender(), builder1.build())).sync();
     }
 }

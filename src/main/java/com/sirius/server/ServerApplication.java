@@ -3,7 +3,6 @@ package com.sirius.server;
 import com.sirius.server.channer.tcp.TcpInit;
 import com.sirius.server.channer.udp.UdpInHandler;
 import com.sirius.server.service.IService;
-import io.netty.channel.Channel;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import org.mybatis.spring.annotation.MapperScan;
@@ -25,11 +24,12 @@ public class ServerApplication {
         EventLoopGroup bossGroup = new NioEventLoopGroup(1);
         EventLoopGroup workerGroup = new NioEventLoopGroup();
         try {
-            Channel channel0 = factory.createTcpServer(new TcpInit(), bossGroup, workerGroup, 5555, 128);
-            Channel channel1 = factory.createUdpServer(new UdpInHandler(), workerGroup, 6666, true);
-            applicationContext.getBeansOfType(IService.class).values().forEach(e -> e.init());
-            Runtime.getRuntime().addShutdownHook(new Thread(new WorldDestroy()));
-            Thread.currentThread().join();
+            factory.createTcpServer(new TcpInit(), bossGroup, workerGroup, 5555, 128);
+            factory.createUdpServer(new UdpInHandler(), workerGroup, 6666, true);
+            applicationContext.getBeansOfType(IService.class).forEach((name, e) -> {
+                e.init();
+            });
+            Runtime.getRuntime().addShutdownHook(applicationContext.getBean(World.class));
         } finally {
             workerGroup.shutdownGracefully();
             bossGroup.shutdownGracefully();

@@ -12,6 +12,10 @@ import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
+/**
+ * @Date:2019/6/28 17:37
+ * @Author:高连棣
+ */
 @Service
 public class NewsService implements IService {
 
@@ -24,7 +28,6 @@ public class NewsService implements IService {
     public void init() {
         List<News> list = newsMapper.selectByExample(null);
         list.forEach(news -> queue.offer(news));
-        logger.info("NewsMode init");
     }
 
     @Override

@@ -3,8 +3,8 @@ package com.sirius.server.sprite.monster;
 import com.sirius.server.sprite.Sprite;
 
 /**
- * @author 高连棣
- * @date 2018/7/2 16:10
+ * @Date:2019/6/28 17:37
+ * @Author:高连棣
  */
 public abstract class Animal extends Sprite {
 	

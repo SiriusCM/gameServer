@@ -3,8 +3,8 @@ package com.sirius.server.sprite;
 import java.io.Serializable;
 
 /**
- * @author 高连棣
- * @date 2018/7/2 16:08
+ * @Date:2019/6/28 17:37
+ * @Author:高连棣
  */
 public abstract class Sprite implements Serializable {
 

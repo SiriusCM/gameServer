@@ -7,6 +7,10 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.handler.codec.protobuf.ProtobufDecoder;
 import io.netty.handler.codec.protobuf.ProtobufEncoder;
 
+/**
+ * @Date:2019/6/28 17:37
+ * @Author:高连棣
+ */
 public class TcpInit extends ChannelInitializer<SocketChannel> {
 
     @Override

@@ -1,13 +1,17 @@
 package com.sirius.server.proto;
 
 import com.google.protobuf.Parser;
-import com.sirius.server.handler.Handler;
+import com.sirius.server.handler.IHandler;
 import com.sirius.server.handler.impl.ComputeHandler;
 import com.sirius.server.proto.protobuf.Compute;
 
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @Date:2019/6/28 17:37
+ * @Author:高连棣
+ */
 public enum MsgRequest {
 	
 	Content(101, ComputeHandler.class, Compute.Content.parser());
@@ -29,11 +33,11 @@ public enum MsgRequest {
 	
 	private int id;
 	
-	private Class<? extends Handler> clazz;
+	private Class<? extends IHandler> clazz;
 	
 	private Parser parser;
 	
-	MsgRequest(int id, Class<? extends Handler> clazz, Parser parser) {
+	MsgRequest(int id, Class<? extends IHandler> clazz, Parser parser) {
 		this.id = id;
 		this.clazz = clazz;
 		this.parser = parser;
@@ -43,7 +47,7 @@ public enum MsgRequest {
 		return id;
 	}
 	
-	public Class<? extends Handler> getClazz() {
+	public Class<? extends IHandler> getClazz() {
 		return clazz;
 	}
 	

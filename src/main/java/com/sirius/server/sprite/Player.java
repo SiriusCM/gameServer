@@ -3,6 +3,10 @@ package com.sirius.server.sprite;
 import com.google.protobuf.GeneratedMessageV3;
 import io.netty.channel.ChannelHandlerContext;
 
+/**
+ * @Date:2019/6/28 17:37
+ * @Author:高连棣
+ */
 public class Player extends Sprite {
 	
 	private ChannelHandlerContext ctx;

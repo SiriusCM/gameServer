@@ -6,6 +6,10 @@ import com.sirius.server.proto.protobuf.Compute;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @Date:2019/6/28 17:37
+ * @Author:高连棣
+ */
 public enum MsgResponse {
 	
 	Result(Compute.Result.class, 102);
