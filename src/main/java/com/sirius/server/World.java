@@ -6,6 +6,7 @@ import com.sirius.server.channer.tcp.TcpInit;
 import com.sirius.server.channer.udp.UdpInHandler;
 import com.sirius.server.service.impl.MethodService;
 import com.sirius.server.sprite.Player;
+import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -16,7 +17,8 @@ import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @Date:2019/6/28 17:37
@@ -29,33 +31,29 @@ public class World extends Thread implements ServletContextListener {
 
     private Map<ChannelHandlerContext, Player> playerMap = new HashMap<>();
 
-    @Autowired
-    private ServerFactory factory;
-
-    @Autowired
-    private MethodService<Init> methodService1;
-
-    @Autowired
-    private MethodService<Destory> methodService2;
-
     @Value("${port.tcp}")
     private int tcpPort;
 
     @Value("${port.udp}")
     private int udpPort;
 
+    @Autowired
+    private ServerFactory factory;
+
+    @Autowired
+    private MethodService methodService;
+
     public void start(ApplicationContext applicationContext) throws Exception {
         World.applicationContext = applicationContext;
         EventLoopGroup bossGroup = new NioEventLoopGroup(1);
         EventLoopGroup workerGroup = new NioEventLoopGroup();
         try {
-            factory.createTcpServer(new TcpInit(), bossGroup, workerGroup, tcpPort, 128);
+            Channel channel = factory.createTcpServer(new TcpInit(), bossGroup, workerGroup, tcpPort, 128);
             factory.createUdpServer(new UdpInHandler(), workerGroup, udpPort, true);
             Runtime.getRuntime().addShutdownHook(this);
-            List<MethodInvoke<Init>> list = methodService1.getMethods(Init.class);
-            Collections.sort(list, Comparator.comparingInt(o -> o.getAnnotation().level()));
-            list.forEach(e -> e.invoke());
-            Thread.currentThread().join();
+            methodService.init();
+            methodService.invoke(Init.class);
+            channel.closeFuture().sync();
         } finally {
             workerGroup.shutdownGracefully();
             bossGroup.shutdownGracefully();
@@ -64,9 +62,7 @@ public class World extends Thread implements ServletContextListener {
 
     @Override
     public void run() {
-        List<MethodInvoke<Destory>> list = methodService2.getMethods(Destory.class);
-        Collections.sort(list, Comparator.comparingInt(o -> o.getAnnotation().level()));
-        list.forEach(e -> e.invoke());
+        methodService.invoke(Destory.class);
     }
 
     @Override

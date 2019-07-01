@@ -9,19 +9,22 @@ import java.lang.reflect.Method;
  * @Author:高连棣
  */
 public class MethodInvoke<T extends Annotation> {
+
     private Method method;
     private Object object;
+    private Object[] params;
     private T annotation;
 
-    public MethodInvoke(Method method, Object object, T annotation) {
+    public MethodInvoke(Method method, Object object, Object[] params, T annotation) {
         this.method = method;
         this.object = object;
+        this.params = params;
         this.annotation = annotation;
     }
 
     public void invoke() {
         try {
-            method.invoke(object);
+            method.invoke(object, params);
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         } catch (InvocationTargetException e) {
@@ -29,27 +32,7 @@ public class MethodInvoke<T extends Annotation> {
         }
     }
 
-    public Method getMethod() {
-        return method;
-    }
-
-    public void setMethod(Method method) {
-        this.method = method;
-    }
-
-    public Object getObject() {
-        return object;
-    }
-
-    public void setObject(Object object) {
-        this.object = object;
-    }
-
     public T getAnnotation() {
         return annotation;
-    }
-
-    public void setAnnotation(T annotation) {
-        this.annotation = annotation;
     }
 }

@@ -1,5 +1,6 @@
 package com.sirius.server.channer.udp;
 
+import com.sirius.server.World;
 import com.sirius.server.proto.MsgResponse;
 import com.sirius.server.proto.ProtoBuf;
 import com.sirius.server.proto.protobuf.Compute;
@@ -29,6 +30,7 @@ public class UdpInHandler extends SimpleChannelInboundHandler<DatagramPacket> {
         ProtoBuf.Message.Builder builder1 = ProtoBuf.Message.newBuilder();
         builder1.setId(MsgResponse.getMsgResponse(result.getClass()).getId());
         builder1.setData(result.toByteString());
-        ctx.writeAndFlush(UdpService.wrapMsg(msg.sender(), builder1.build())).sync();
+        DatagramPacket datagramPacket = World.getApplicationContext().getBean(UdpService.class).wrapMsg(msg.sender(), builder1.build());
+        ctx.writeAndFlush(datagramPacket).sync();
     }
 }

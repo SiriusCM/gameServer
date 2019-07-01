@@ -1,5 +1,6 @@
 package com.sirius.server.service.impl;
 
+import com.sirius.server.service.IService;
 import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayInputStream;
@@ -13,11 +14,11 @@ import java.text.SimpleDateFormat;
  * @Author:高连棣
  */
 @Service
-public class SerializeService {
+public class SerializeService implements IService {
 
-    public static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    public SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-    public static byte[] serialize(Object object) {
+    public byte[] serialize(Object object) {
         try (ByteArrayOutputStream baos = new ByteArrayOutputStream();
              ObjectOutputStream oos = new ObjectOutputStream(baos)) {
             oos.writeObject(object);
@@ -28,7 +29,7 @@ public class SerializeService {
         return null;
     }
 
-    public static Object unserialize(byte[] bytes) {
+    public Object unserialize(byte[] bytes) {
         try (ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
              ObjectInputStream ois = new ObjectInputStream(bais)) {
             return ois.readObject();
