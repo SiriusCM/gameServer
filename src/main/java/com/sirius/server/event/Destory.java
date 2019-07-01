@@ -1,4 +1,4 @@
-package com.sirius.server.annotation;
+package com.sirius.server.event;
 
 import java.lang.annotation.*;
 

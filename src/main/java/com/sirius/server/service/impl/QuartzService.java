@@ -2,8 +2,8 @@ package com.sirius.server.service.impl;
 
 import com.sirius.server.MethodInvoke;
 import com.sirius.server.QuartzJob;
-import com.sirius.server.annotation.Init;
-import com.sirius.server.annotation.Schedule;
+import com.sirius.server.event.Init;
+import com.sirius.server.event.Schedule;
 import com.sirius.server.service.IService;
 import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;

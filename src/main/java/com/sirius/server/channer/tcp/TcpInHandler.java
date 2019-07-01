@@ -2,6 +2,7 @@ package com.sirius.server.channer.tcp;
 
 import com.sirius.server.Loggers;
 import com.sirius.server.World;
+import com.sirius.server.exception.GameException;
 import com.sirius.server.handler.IHandler;
 import com.sirius.server.proto.MsgRequest;
 import com.sirius.server.proto.ProtoBuf;
@@ -21,7 +22,8 @@ public class TcpInHandler extends SimpleChannelInboundHandler<ProtoBuf.Message> 
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) {
-        world.addPlayer(ctx, new Player(23, "高连棣", ctx));
+        Player player = new Player(23, "高连棣", ctx);
+        world.addPlayer(ctx, player);
     }
 
     @Override
@@ -29,12 +31,14 @@ public class TcpInHandler extends SimpleChannelInboundHandler<ProtoBuf.Message> 
     }
 
     @Override
-    protected void channelRead0(ChannelHandlerContext ctx, ProtoBuf.Message message) throws Exception {
+    protected void channelRead0(ChannelHandlerContext ctx, ProtoBuf.Message message) {
         MsgRequest msgRequest = MsgRequest.getMsgRequest(message.getId());
         IHandler IHandler = World.getApplicationContext().getBean(msgRequest.getClazz());
         try {
             IHandler.handle(world.getPlayerByCtx(ctx), msgRequest.getParser().parseFrom(message.getData()));
-        } catch (Exception e) {
+        }catch (GameException e) {
+
+        }catch (Exception e) {
             Loggers.world.error("错误:", e);
         }
     }

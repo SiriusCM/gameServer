@@ -1,14 +1,13 @@
 package com.sirius.server.handler.impl;
 
 
+import com.sirius.server.exception.GameException;
+import com.sirius.server.exception.sub.ComputeException;
 import com.sirius.server.handler.IHandler;
 import com.sirius.server.proto.MsgRequest;
 import com.sirius.server.proto.protobuf.Compute;
 import com.sirius.server.sprite.Player;
 import org.springframework.stereotype.Component;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @Date:2019/6/28 17:37
@@ -18,7 +17,7 @@ import java.util.List;
 public class ComputeHandler implements IHandler {
 
     @Override
-    public boolean handle(Player player, Object data) {
+    public boolean handle(Player player, Object data) throws GameException, Exception {
         Compute.Content content = (Compute.Content) data;
         String op = content.getOp();
         double x = content.getX();
@@ -38,7 +37,7 @@ public class ComputeHandler implements IHandler {
                 r = x / y;
                 break;
             default:
-                return false;
+                throw new ComputeException();
         }
         Compute.Result.Builder builder = Compute.Result.newBuilder();
         builder.setResult(r);

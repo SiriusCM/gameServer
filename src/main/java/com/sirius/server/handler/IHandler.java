@@ -1,5 +1,6 @@
 package com.sirius.server.handler;
 
+import com.sirius.server.exception.GameException;
 import com.sirius.server.proto.MsgRequest;
 import com.sirius.server.sprite.Player;
 
@@ -9,7 +10,7 @@ import com.sirius.server.sprite.Player;
  */
 public interface IHandler {
 
-    boolean handle(Player player, Object data);
+    boolean handle(Player player, Object data) throws GameException, Exception;
 
     MsgRequest getProto();
 }

@@ -1,6 +1,6 @@
 package com.sirius.server.service.impl;
 
-import com.sirius.server.annotation.Init;
+import com.sirius.server.event.Init;
 import com.sirius.server.database.entity.News;
 import com.sirius.server.database.entity.NewsExample;
 import com.sirius.server.database.mapper.NewsMapper;

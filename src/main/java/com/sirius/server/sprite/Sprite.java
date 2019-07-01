@@ -8,23 +8,23 @@ import java.io.Serializable;
  */
 public abstract class Sprite implements Serializable {
 
-	protected int id;
-	
-	protected String name;
+    protected long id;
 
-	public int getId() {
-		return id;
-	}
+    protected String name;
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public long getId() {
+        return id;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public void setId(long id) {
+        this.id = id;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }

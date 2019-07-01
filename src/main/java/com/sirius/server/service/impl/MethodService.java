@@ -23,7 +23,7 @@ public class MethodService<T extends Annotation> implements IService {
     private ClassService classService;
 
     public void init() {
-        List<String> list = classService.getClazzName("com.sirius.server.annotation", true);
+        List<String> list = classService.getClazzName(World.class.getPackage().getName(), true);
         list.forEach(e -> {
             try {
                 Class clazz = Class.forName(e);
@@ -34,7 +34,7 @@ public class MethodService<T extends Annotation> implements IService {
         });
     }
 
-    public void invoke(Class<T> annotationClass) {
+    public void trigger(Class<T> annotationClass) {
         methodMap.get(annotationClass).forEach(e -> e.invoke());
     }
 

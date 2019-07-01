@@ -1,7 +1,7 @@
 package com.sirius.server;
 
-import com.sirius.server.annotation.Destory;
-import com.sirius.server.annotation.Init;
+import com.sirius.server.event.Destory;
+import com.sirius.server.event.Init;
 import com.sirius.server.channer.tcp.TcpInit;
 import com.sirius.server.channer.udp.UdpInHandler;
 import com.sirius.server.service.impl.MethodService;
@@ -17,6 +17,7 @@ import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -52,7 +53,7 @@ public class World extends Thread implements ServletContextListener {
             factory.createUdpServer(new UdpInHandler(), workerGroup, udpPort, true);
             Runtime.getRuntime().addShutdownHook(this);
             methodService.init();
-            methodService.invoke(Init.class);
+            methodService.trigger(Init.class);
             channel.closeFuture().sync();
         } finally {
             workerGroup.shutdownGracefully();
@@ -62,7 +63,7 @@ public class World extends Thread implements ServletContextListener {
 
     @Override
     public void run() {
-        methodService.invoke(Destory.class);
+        methodService.trigger(Destory.class);
     }
 
     @Override
@@ -71,6 +72,10 @@ public class World extends Thread implements ServletContextListener {
 
     @Override
     public void contextDestroyed(ServletContextEvent servletContextEvent) {
+    }
+
+    public Collection<Player> getAllPlayer() {
+        return playerMap.values();
     }
 
     public Player getPlayerByCtx(ChannelHandlerContext ctx) {
