@@ -24,10 +24,7 @@ public enum MsgResponse {
     }
 
     public static MsgResponse getMsgResponse(Class clazz) {
-        if (clazzMsgMap.containsKey(clazz)) {
-            return clazzMsgMap.get(clazz);
-        }
-        return null;
+        return clazzMsgMap.get(clazz);
     }
 
     private Class clazz;

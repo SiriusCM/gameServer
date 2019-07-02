@@ -25,10 +25,7 @@ public enum MsgRequest {
 	}
 	
 	public static MsgRequest getMsgRequest(int msgId) {
-		if (idMsgMap.containsKey(msgId)) {
-			return idMsgMap.get(msgId);
-		}
-		return null;
+		return idMsgMap.get(msgId);
 	}
 	
 	private int id;

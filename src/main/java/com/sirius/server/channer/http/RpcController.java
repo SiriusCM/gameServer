@@ -16,8 +16,8 @@ import java.util.Queue;
  * @Author:高连棣
  */
 @RestController
-@RequestMapping("/deal")
-public class DealController {
+@RequestMapping("/rpc")
+public class RpcController {
 
     @Autowired
     private NewsService newsService;

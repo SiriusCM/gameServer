@@ -9,6 +9,7 @@ import com.sirius.server.state.IState;
  * @Author:高连棣
  */
 public class BattleIState implements IState {
+
 	@Override
 	public boolean inState(Sprite sprite) {
 		return false;

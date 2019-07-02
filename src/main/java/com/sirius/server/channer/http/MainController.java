@@ -19,20 +19,20 @@ import java.util.Queue;
  */
 @RestController
 @RequestMapping("/")
-public class Controller {
+public class MainController {
 
     @Autowired
     private RestTemplate restTemplate;
 
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public ModelAndView index() {
-        ResponseEntity<ModelAndView> responseEntity = restTemplate.getForEntity("http://service-provider/deal/index", ModelAndView.class);
+        ResponseEntity<ModelAndView> responseEntity = restTemplate.getForEntity("http://service-provider/rpc/index", ModelAndView.class);
         return responseEntity.getBody();
     }
 
     @RequestMapping(value = "/getNews", method = RequestMethod.GET)
     public Queue<News> getNews() {
-        ResponseEntity<Queue> responseEntity = restTemplate.getForEntity("http://service-provider/deal/index", Queue.class);
+        ResponseEntity<Queue> responseEntity = restTemplate.getForEntity("http://service-provider/rpc/index", Queue.class);
         return responseEntity.getBody();
     }
 
@@ -41,7 +41,7 @@ public class Controller {
         Map<String, String> map = new HashMap<>();
         map.put("title", title);
         map.put("content", content);
-        ResponseEntity<News> responseEntity = restTemplate.postForEntity("http://service-provider/deal/index", map, News.class);
+        ResponseEntity<News> responseEntity = restTemplate.postForEntity("http://service-provider/rpc/index", map, News.class);
         return responseEntity.getBody();
     }
 }
