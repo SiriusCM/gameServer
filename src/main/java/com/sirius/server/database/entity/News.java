@@ -1,35 +1,13 @@
 package com.sirius.server.database.entity;
 
-import java.util.Date;
-
 public class News {
-    private String title;
+    private String name;
 
-    private String content;
-
-    private Date time;
-
-    public String getTitle() {
-        return title;
+    public String getName() {
+        return name;
     }
 
-    public void setTitle(String title) {
-        this.title = title == null ? null : title.trim();
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content == null ? null : content.trim();
-    }
-
-    public Date getTime() {
-        return time;
-    }
-
-    public void setTime(Date time) {
-        this.time = time;
+    public void setName(String name) {
+        this.name = name == null ? null : name.trim();
     }
 }
