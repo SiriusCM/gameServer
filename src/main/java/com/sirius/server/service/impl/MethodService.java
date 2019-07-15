@@ -34,25 +34,25 @@ public class MethodService<T extends Annotation> implements IService {
         });
     }
 
+    public List<MethodInvoke<T>> getMethods(Class<T> annotationClass) {
+        return methodMap.get(annotationClass);
+    }
+
     public void trigger(Class<T> annotationClass) {
         methodMap.get(annotationClass).forEach(e -> e.invoke());
     }
 
-    public List<MethodInvoke<T>> findMethods(Class<T> annotationClass) {
+    private List<MethodInvoke<T>> findMethods(Class<T> annotationClass) {
         List<MethodInvoke<T>> list = new ArrayList<>();
         World.getApplicationContext().getBeansOfType(Object.class).forEach((name, object) -> {
             for (Method method : object.getClass().getMethods()) {
                 if (method.isAnnotationPresent(annotationClass)) {
                     T annotation = method.getAnnotation(annotationClass);
-                    list.add(new MethodInvoke(method, object, new Object[]{}, annotation));
+                    list.add(new MethodInvoke(method, object, annotation));
                 }
             }
         });
         Collections.sort(list, Comparator.comparingInt(o -> 0));
         return list;
-    }
-
-    public List<MethodInvoke<T>> getMethods(Class<T> annotationClass) {
-        return methodMap.get(annotationClass);
     }
 }

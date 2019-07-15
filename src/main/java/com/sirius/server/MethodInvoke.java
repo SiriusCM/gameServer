@@ -12,17 +12,15 @@ public class MethodInvoke<T extends Annotation> {
 
     private Method method;
     private Object object;
-    private Object[] params;
     private T annotation;
 
-    public MethodInvoke(Method method, Object object, Object[] params, T annotation) {
+    public MethodInvoke(Method method, Object object, T annotation) {
         this.method = method;
         this.object = object;
-        this.params = params;
         this.annotation = annotation;
     }
 
-    public void invoke() {
+    public void invoke(Object... params) {
         try {
             method.invoke(object, params);
         } catch (IllegalAccessException e) {
