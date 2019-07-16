@@ -2,8 +2,8 @@ package com.sirius.server.service.impl;
 
 import com.sirius.server.event.Handler;
 import com.sirius.server.exception.sub.ComputeException;
-import com.sirius.server.proto.MsgRequest;
-import com.sirius.server.proto.protobuf.Compute;
+import com.sirius.server.msg.MsgRequest;
+import com.sirius.server.msg.protobuf.Compute;
 import com.sirius.server.service.IService;
 import com.sirius.server.sprite.Player;
 import org.springframework.stereotype.Service;

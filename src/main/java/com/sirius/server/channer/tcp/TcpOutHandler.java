@@ -1,8 +1,8 @@
 package com.sirius.server.channer.tcp;
 
 import com.google.protobuf.GeneratedMessageV3;
-import com.sirius.server.proto.MsgResponse;
-import com.sirius.server.proto.ProtoBuf;
+import com.sirius.server.msg.MsgResponse;
+import com.sirius.server.msg.ProtoBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToMessageEncoder;
 

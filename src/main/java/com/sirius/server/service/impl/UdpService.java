@@ -1,8 +1,8 @@
 package com.sirius.server.service.impl;
 
 import com.google.protobuf.GeneratedMessageV3;
-import com.sirius.server.proto.MsgResponse;
-import com.sirius.server.proto.ProtoBuf;
+import com.sirius.server.msg.MsgResponse;
+import com.sirius.server.msg.ProtoBuf;
 import com.sirius.server.service.IService;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.socket.DatagramPacket;

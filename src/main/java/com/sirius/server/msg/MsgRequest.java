@@ -1,7 +1,7 @@
-package com.sirius.server.proto;
+package com.sirius.server.msg;
 
 import com.google.protobuf.Parser;
-import com.sirius.server.proto.protobuf.Compute;
+import com.sirius.server.msg.protobuf.Compute;
 
 import java.util.HashMap;
 import java.util.Map;

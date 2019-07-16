@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sirius.server.mybatis.mapper.WifeMapper">
+  <resultMap id="BaseResultMap" type="com.sirius.server.mybatis.entity.Wife">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="wifeSn" jdbcType="INTEGER" property="wifesn" />
+    <result column="humanId" jdbcType="BIGINT" property="humanid" />
+    <result column="advance" jdbcType="INTEGER" property="advance" />
+    <result column="level" jdbcType="INTEGER" property="level" />
+    <result column="exp" jdbcType="INTEGER" property="exp" />
+    <result column="star" jdbcType="INTEGER" property="star" />
+    <result column="ultSkill" jdbcType="VARCHAR" property="ultskill" />
+    <result column="skillList" jdbcType="VARCHAR" property="skilllist" />
+    <result column="abilityList" jdbcType="VARCHAR" property="abilitylist" />
+    <result column="floor" jdbcType="INTEGER" property="floor" />
+    <result column="index" jdbcType="VARCHAR" property="index" />
+    <result column="decorationIndex" jdbcType="INTEGER" property="decorationindex" />
+    <result column="decorations" jdbcType="VARCHAR" property="decorations" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="tempWifeSn" jdbcType="INTEGER" property="tempwifesn" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, wifeSn, humanId, advance, level, exp, star, ultSkill, skillList, abilityList, 
+    floor, index, decorationIndex, decorations, type, tempWifeSn
+  </sql>
+  <select id="selectByExample" parameterType="com.sirius.server.mybatis.entity.WifeExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from npc_wife
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from npc_wife
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from npc_wife
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sirius.server.mybatis.entity.WifeExample">
+    delete from npc_wife
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sirius.server.mybatis.entity.Wife">
+    insert into npc_wife (id, wifeSn, humanId, 
+      advance, level, exp, 
+      star, ultSkill, skillList, 
+      abilityList, floor, index, 
+      decorationIndex, decorations, type, 
+      tempWifeSn)
+    values (#{id,jdbcType=BIGINT}, #{wifesn,jdbcType=INTEGER}, #{humanid,jdbcType=BIGINT}, 
+      #{advance,jdbcType=INTEGER}, #{level,jdbcType=INTEGER}, #{exp,jdbcType=INTEGER}, 
+      #{star,jdbcType=INTEGER}, #{ultskill,jdbcType=VARCHAR}, #{skilllist,jdbcType=VARCHAR}, 
+      #{abilitylist,jdbcType=VARCHAR}, #{floor,jdbcType=INTEGER}, #{index,jdbcType=VARCHAR}, 
+      #{decorationindex,jdbcType=INTEGER}, #{decorations,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, 
+      #{tempwifesn,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sirius.server.mybatis.entity.Wife">
+    insert into npc_wife
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="wifesn != null">
+        wifeSn,
+      </if>
+      <if test="humanid != null">
+        humanId,
+      </if>
+      <if test="advance != null">
+        advance,
+      </if>
+      <if test="level != null">
+        level,
+      </if>
+      <if test="exp != null">
+        exp,
+      </if>
+      <if test="star != null">
+        star,
+      </if>
+      <if test="ultskill != null">
+        ultSkill,
+      </if>
+      <if test="skilllist != null">
+        skillList,
+      </if>
+      <if test="abilitylist != null">
+        abilityList,
+      </if>
+      <if test="floor != null">
+        floor,
+      </if>
+      <if test="index != null">
+        index,
+      </if>
+      <if test="decorationindex != null">
+        decorationIndex,
+      </if>
+      <if test="decorations != null">
+        decorations,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="tempwifesn != null">
+        tempWifeSn,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="wifesn != null">
+        #{wifesn,jdbcType=INTEGER},
+      </if>
+      <if test="humanid != null">
+        #{humanid,jdbcType=BIGINT},
+      </if>
+      <if test="advance != null">
+        #{advance,jdbcType=INTEGER},
+      </if>
+      <if test="level != null">
+        #{level,jdbcType=INTEGER},
+      </if>
+      <if test="exp != null">
+        #{exp,jdbcType=INTEGER},
+      </if>
+      <if test="star != null">
+        #{star,jdbcType=INTEGER},
+      </if>
+      <if test="ultskill != null">
+        #{ultskill,jdbcType=VARCHAR},
+      </if>
+      <if test="skilllist != null">
+        #{skilllist,jdbcType=VARCHAR},
+      </if>
+      <if test="abilitylist != null">
+        #{abilitylist,jdbcType=VARCHAR},
+      </if>
+      <if test="floor != null">
+        #{floor,jdbcType=INTEGER},
+      </if>
+      <if test="index != null">
+        #{index,jdbcType=VARCHAR},
+      </if>
+      <if test="decorationindex != null">
+        #{decorationindex,jdbcType=INTEGER},
+      </if>
+      <if test="decorations != null">
+        #{decorations,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="tempwifesn != null">
+        #{tempwifesn,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sirius.server.mybatis.entity.WifeExample" resultType="java.lang.Long">
+    select count(*) from npc_wife
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update npc_wife
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.wifesn != null">
+        wifeSn = #{record.wifesn,jdbcType=INTEGER},
+      </if>
+      <if test="record.humanid != null">
+        humanId = #{record.humanid,jdbcType=BIGINT},
+      </if>
+      <if test="record.advance != null">
+        advance = #{record.advance,jdbcType=INTEGER},
+      </if>
+      <if test="record.level != null">
+        level = #{record.level,jdbcType=INTEGER},
+      </if>
+      <if test="record.exp != null">
+        exp = #{record.exp,jdbcType=INTEGER},
+      </if>
+      <if test="record.star != null">
+        star = #{record.star,jdbcType=INTEGER},
+      </if>
+      <if test="record.ultskill != null">
+        ultSkill = #{record.ultskill,jdbcType=VARCHAR},
+      </if>
+      <if test="record.skilllist != null">
+        skillList = #{record.skilllist,jdbcType=VARCHAR},
+      </if>
+      <if test="record.abilitylist != null">
+        abilityList = #{record.abilitylist,jdbcType=VARCHAR},
+      </if>
+      <if test="record.floor != null">
+        floor = #{record.floor,jdbcType=INTEGER},
+      </if>
+      <if test="record.index != null">
+        index = #{record.index,jdbcType=VARCHAR},
+      </if>
+      <if test="record.decorationindex != null">
+        decorationIndex = #{record.decorationindex,jdbcType=INTEGER},
+      </if>
+      <if test="record.decorations != null">
+        decorations = #{record.decorations,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null">
+        type = #{record.type,jdbcType=INTEGER},
+      </if>
+      <if test="record.tempwifesn != null">
+        tempWifeSn = #{record.tempwifesn,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update npc_wife
+    set id = #{record.id,jdbcType=BIGINT},
+      wifeSn = #{record.wifesn,jdbcType=INTEGER},
+      humanId = #{record.humanid,jdbcType=BIGINT},
+      advance = #{record.advance,jdbcType=INTEGER},
+      level = #{record.level,jdbcType=INTEGER},
+      exp = #{record.exp,jdbcType=INTEGER},
+      star = #{record.star,jdbcType=INTEGER},
+      ultSkill = #{record.ultskill,jdbcType=VARCHAR},
+      skillList = #{record.skilllist,jdbcType=VARCHAR},
+      abilityList = #{record.abilitylist,jdbcType=VARCHAR},
+      floor = #{record.floor,jdbcType=INTEGER},
+      index = #{record.index,jdbcType=VARCHAR},
+      decorationIndex = #{record.decorationindex,jdbcType=INTEGER},
+      decorations = #{record.decorations,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=INTEGER},
+      tempWifeSn = #{record.tempwifesn,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sirius.server.mybatis.entity.Wife">
+    update npc_wife
+    <set>
+      <if test="wifesn != null">
+        wifeSn = #{wifesn,jdbcType=INTEGER},
+      </if>
+      <if test="humanid != null">
+        humanId = #{humanid,jdbcType=BIGINT},
+      </if>
+      <if test="advance != null">
+        advance = #{advance,jdbcType=INTEGER},
+      </if>
+      <if test="level != null">
+        level = #{level,jdbcType=INTEGER},
+      </if>
+      <if test="exp != null">
+        exp = #{exp,jdbcType=INTEGER},
+      </if>
+      <if test="star != null">
+        star = #{star,jdbcType=INTEGER},
+      </if>
+      <if test="ultskill != null">
+        ultSkill = #{ultskill,jdbcType=VARCHAR},
+      </if>
+      <if test="skilllist != null">
+        skillList = #{skilllist,jdbcType=VARCHAR},
+      </if>
+      <if test="abilitylist != null">
+        abilityList = #{abilitylist,jdbcType=VARCHAR},
+      </if>
+      <if test="floor != null">
+        floor = #{floor,jdbcType=INTEGER},
+      </if>
+      <if test="index != null">
+        index = #{index,jdbcType=VARCHAR},
+      </if>
+      <if test="decorationindex != null">
+        decorationIndex = #{decorationindex,jdbcType=INTEGER},
+      </if>
+      <if test="decorations != null">
+        decorations = #{decorations,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="tempwifesn != null">
+        tempWifeSn = #{tempwifesn,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sirius.server.mybatis.entity.Wife">
+    update npc_wife
+    set wifeSn = #{wifesn,jdbcType=INTEGER},
+      humanId = #{humanid,jdbcType=BIGINT},
+      advance = #{advance,jdbcType=INTEGER},
+      level = #{level,jdbcType=INTEGER},
+      exp = #{exp,jdbcType=INTEGER},
+      star = #{star,jdbcType=INTEGER},
+      ultSkill = #{ultskill,jdbcType=VARCHAR},
+      skillList = #{skilllist,jdbcType=VARCHAR},
+      abilityList = #{abilitylist,jdbcType=VARCHAR},
+      floor = #{floor,jdbcType=INTEGER},
+      index = #{index,jdbcType=VARCHAR},
+      decorationIndex = #{decorationindex,jdbcType=INTEGER},
+      decorations = #{decorations,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER},
+      tempWifeSn = #{tempwifesn,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

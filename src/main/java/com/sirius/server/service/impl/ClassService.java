@@ -38,7 +38,6 @@ public class ClassService implements IService {
                     String protocol = url.getProtocol();
                     if ("file".equals(protocol)) {
                         String path = url.getPath();
-                        System.out.println(path);
                         result.addAll(getAllClassNameByFile(new File(path), showChildPackageFlag));
                     } else if ("jar".equals(protocol)) {
                         JarFile jarFile = null;

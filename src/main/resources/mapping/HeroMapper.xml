@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sirius.server.mybatis.mapper.HeroMapper">
+  <resultMap id="BaseResultMap" type="com.sirius.server.mybatis.entity.Hero">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="sn" jdbcType="INTEGER" property="sn" />
+    <result column="humanId" jdbcType="BIGINT" property="humanid" />
+    <result column="advance" jdbcType="INTEGER" property="advance" />
+    <result column="level" jdbcType="INTEGER" property="level" />
+    <result column="exp" jdbcType="INTEGER" property="exp" />
+    <result column="skillgroup1" jdbcType="VARCHAR" property="skillgroup1" />
+    <result column="skillgroup2" jdbcType="VARCHAR" property="skillgroup2" />
+    <result column="skillgroup3" jdbcType="VARCHAR" property="skillgroup3" />
+    <result column="gid" jdbcType="INTEGER" property="gid" />
+    <result column="equipSN" jdbcType="INTEGER" property="equipsn" />
+    <result column="euqips" jdbcType="VARCHAR" property="euqips" />
+    <result column="skills" jdbcType="VARCHAR" property="skills" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, sn, humanId, advance, level, exp, skillgroup1, skillgroup2, skillgroup3, gid, 
+    equipSN, euqips, skills
+  </sql>
+  <select id="selectByExample" parameterType="com.sirius.server.mybatis.entity.HeroExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from npc_hero
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from npc_hero
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from npc_hero
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sirius.server.mybatis.entity.HeroExample">
+    delete from npc_hero
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sirius.server.mybatis.entity.Hero">
+    insert into npc_hero (id, sn, humanId, 
+      advance, level, exp, 
+      skillgroup1, skillgroup2, skillgroup3, 
+      gid, equipSN, euqips, 
+      skills)
+    values (#{id,jdbcType=BIGINT}, #{sn,jdbcType=INTEGER}, #{humanid,jdbcType=BIGINT}, 
+      #{advance,jdbcType=INTEGER}, #{level,jdbcType=INTEGER}, #{exp,jdbcType=INTEGER}, 
+      #{skillgroup1,jdbcType=VARCHAR}, #{skillgroup2,jdbcType=VARCHAR}, #{skillgroup3,jdbcType=VARCHAR}, 
+      #{gid,jdbcType=INTEGER}, #{equipsn,jdbcType=INTEGER}, #{euqips,jdbcType=VARCHAR}, 
+      #{skills,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sirius.server.mybatis.entity.Hero">
+    insert into npc_hero
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="sn != null">
+        sn,
+      </if>
+      <if test="humanid != null">
+        humanId,
+      </if>
+      <if test="advance != null">
+        advance,
+      </if>
+      <if test="level != null">
+        level,
+      </if>
+      <if test="exp != null">
+        exp,
+      </if>
+      <if test="skillgroup1 != null">
+        skillgroup1,
+      </if>
+      <if test="skillgroup2 != null">
+        skillgroup2,
+      </if>
+      <if test="skillgroup3 != null">
+        skillgroup3,
+      </if>
+      <if test="gid != null">
+        gid,
+      </if>
+      <if test="equipsn != null">
+        equipSN,
+      </if>
+      <if test="euqips != null">
+        euqips,
+      </if>
+      <if test="skills != null">
+        skills,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="sn != null">
+        #{sn,jdbcType=INTEGER},
+      </if>
+      <if test="humanid != null">
+        #{humanid,jdbcType=BIGINT},
+      </if>
+      <if test="advance != null">
+        #{advance,jdbcType=INTEGER},
+      </if>
+      <if test="level != null">
+        #{level,jdbcType=INTEGER},
+      </if>
+      <if test="exp != null">
+        #{exp,jdbcType=INTEGER},
+      </if>
+      <if test="skillgroup1 != null">
+        #{skillgroup1,jdbcType=VARCHAR},
+      </if>
+      <if test="skillgroup2 != null">
+        #{skillgroup2,jdbcType=VARCHAR},
+      </if>
+      <if test="skillgroup3 != null">
+        #{skillgroup3,jdbcType=VARCHAR},
+      </if>
+      <if test="gid != null">
+        #{gid,jdbcType=INTEGER},
+      </if>
+      <if test="equipsn != null">
+        #{equipsn,jdbcType=INTEGER},
+      </if>
+      <if test="euqips != null">
+        #{euqips,jdbcType=VARCHAR},
+      </if>
+      <if test="skills != null">
+        #{skills,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sirius.server.mybatis.entity.HeroExample" resultType="java.lang.Long">
+    select count(*) from npc_hero
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update npc_hero
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.sn != null">
+        sn = #{record.sn,jdbcType=INTEGER},
+      </if>
+      <if test="record.humanid != null">
+        humanId = #{record.humanid,jdbcType=BIGINT},
+      </if>
+      <if test="record.advance != null">
+        advance = #{record.advance,jdbcType=INTEGER},
+      </if>
+      <if test="record.level != null">
+        level = #{record.level,jdbcType=INTEGER},
+      </if>
+      <if test="record.exp != null">
+        exp = #{record.exp,jdbcType=INTEGER},
+      </if>
+      <if test="record.skillgroup1 != null">
+        skillgroup1 = #{record.skillgroup1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.skillgroup2 != null">
+        skillgroup2 = #{record.skillgroup2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.skillgroup3 != null">
+        skillgroup3 = #{record.skillgroup3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gid != null">
+        gid = #{record.gid,jdbcType=INTEGER},
+      </if>
+      <if test="record.equipsn != null">
+        equipSN = #{record.equipsn,jdbcType=INTEGER},
+      </if>
+      <if test="record.euqips != null">
+        euqips = #{record.euqips,jdbcType=VARCHAR},
+      </if>
+      <if test="record.skills != null">
+        skills = #{record.skills,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update npc_hero
+    set id = #{record.id,jdbcType=BIGINT},
+      sn = #{record.sn,jdbcType=INTEGER},
+      humanId = #{record.humanid,jdbcType=BIGINT},
+      advance = #{record.advance,jdbcType=INTEGER},
+      level = #{record.level,jdbcType=INTEGER},
+      exp = #{record.exp,jdbcType=INTEGER},
+      skillgroup1 = #{record.skillgroup1,jdbcType=VARCHAR},
+      skillgroup2 = #{record.skillgroup2,jdbcType=VARCHAR},
+      skillgroup3 = #{record.skillgroup3,jdbcType=VARCHAR},
+      gid = #{record.gid,jdbcType=INTEGER},
+      equipSN = #{record.equipsn,jdbcType=INTEGER},
+      euqips = #{record.euqips,jdbcType=VARCHAR},
+      skills = #{record.skills,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sirius.server.mybatis.entity.Hero">
+    update npc_hero
+    <set>
+      <if test="sn != null">
+        sn = #{sn,jdbcType=INTEGER},
+      </if>
+      <if test="humanid != null">
+        humanId = #{humanid,jdbcType=BIGINT},
+      </if>
+      <if test="advance != null">
+        advance = #{advance,jdbcType=INTEGER},
+      </if>
+      <if test="level != null">
+        level = #{level,jdbcType=INTEGER},
+      </if>
+      <if test="exp != null">
+        exp = #{exp,jdbcType=INTEGER},
+      </if>
+      <if test="skillgroup1 != null">
+        skillgroup1 = #{skillgroup1,jdbcType=VARCHAR},
+      </if>
+      <if test="skillgroup2 != null">
+        skillgroup2 = #{skillgroup2,jdbcType=VARCHAR},
+      </if>
+      <if test="skillgroup3 != null">
+        skillgroup3 = #{skillgroup3,jdbcType=VARCHAR},
+      </if>
+      <if test="gid != null">
+        gid = #{gid,jdbcType=INTEGER},
+      </if>
+      <if test="equipsn != null">
+        equipSN = #{equipsn,jdbcType=INTEGER},
+      </if>
+      <if test="euqips != null">
+        euqips = #{euqips,jdbcType=VARCHAR},
+      </if>
+      <if test="skills != null">
+        skills = #{skills,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sirius.server.mybatis.entity.Hero">
+    update npc_hero
+    set sn = #{sn,jdbcType=INTEGER},
+      humanId = #{humanid,jdbcType=BIGINT},
+      advance = #{advance,jdbcType=INTEGER},
+      level = #{level,jdbcType=INTEGER},
+      exp = #{exp,jdbcType=INTEGER},
+      skillgroup1 = #{skillgroup1,jdbcType=VARCHAR},
+      skillgroup2 = #{skillgroup2,jdbcType=VARCHAR},
+      skillgroup3 = #{skillgroup3,jdbcType=VARCHAR},
+      gid = #{gid,jdbcType=INTEGER},
+      equipSN = #{equipsn,jdbcType=INTEGER},
+      euqips = #{euqips,jdbcType=VARCHAR},
+      skills = #{skills,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

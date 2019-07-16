@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sirius.server.mybatis.mapper.BagItemMapper">
+  <resultMap id="BaseResultMap" type="com.sirius.server.mybatis.entity.BagItem">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="bagId" jdbcType="INTEGER" property="bagid" />
+    <result column="sn" jdbcType="INTEGER" property="sn" />
+    <result column="humanId" jdbcType="BIGINT" property="humanid" />
+    <result column="ownerId" jdbcType="BIGINT" property="ownerid" />
+    <result column="num" jdbcType="INTEGER" property="num" />
+    <result column="grade" jdbcType="INTEGER" property="grade" />
+    <result column="bind" jdbcType="INTEGER" property="bind" />
+    <result column="ext" jdbcType="VARCHAR" property="ext" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, bagId, sn, humanId, ownerId, num, grade, bind, ext
+  </sql>
+  <select id="selectByExample" parameterType="com.sirius.server.mybatis.entity.BagItemExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from npc_bag_item
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from npc_bag_item
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from npc_bag_item
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sirius.server.mybatis.entity.BagItemExample">
+    delete from npc_bag_item
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sirius.server.mybatis.entity.BagItem">
+    insert into npc_bag_item (id, bagId, sn, 
+      humanId, ownerId, num, 
+      grade, bind, ext)
+    values (#{id,jdbcType=BIGINT}, #{bagid,jdbcType=INTEGER}, #{sn,jdbcType=INTEGER}, 
+      #{humanid,jdbcType=BIGINT}, #{ownerid,jdbcType=BIGINT}, #{num,jdbcType=INTEGER}, 
+      #{grade,jdbcType=INTEGER}, #{bind,jdbcType=INTEGER}, #{ext,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sirius.server.mybatis.entity.BagItem">
+    insert into npc_bag_item
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="bagid != null">
+        bagId,
+      </if>
+      <if test="sn != null">
+        sn,
+      </if>
+      <if test="humanid != null">
+        humanId,
+      </if>
+      <if test="ownerid != null">
+        ownerId,
+      </if>
+      <if test="num != null">
+        num,
+      </if>
+      <if test="grade != null">
+        grade,
+      </if>
+      <if test="bind != null">
+        bind,
+      </if>
+      <if test="ext != null">
+        ext,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="bagid != null">
+        #{bagid,jdbcType=INTEGER},
+      </if>
+      <if test="sn != null">
+        #{sn,jdbcType=INTEGER},
+      </if>
+      <if test="humanid != null">
+        #{humanid,jdbcType=BIGINT},
+      </if>
+      <if test="ownerid != null">
+        #{ownerid,jdbcType=BIGINT},
+      </if>
+      <if test="num != null">
+        #{num,jdbcType=INTEGER},
+      </if>
+      <if test="grade != null">
+        #{grade,jdbcType=INTEGER},
+      </if>
+      <if test="bind != null">
+        #{bind,jdbcType=INTEGER},
+      </if>
+      <if test="ext != null">
+        #{ext,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sirius.server.mybatis.entity.BagItemExample" resultType="java.lang.Long">
+    select count(*) from npc_bag_item
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update npc_bag_item
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.bagid != null">
+        bagId = #{record.bagid,jdbcType=INTEGER},
+      </if>
+      <if test="record.sn != null">
+        sn = #{record.sn,jdbcType=INTEGER},
+      </if>
+      <if test="record.humanid != null">
+        humanId = #{record.humanid,jdbcType=BIGINT},
+      </if>
+      <if test="record.ownerid != null">
+        ownerId = #{record.ownerid,jdbcType=BIGINT},
+      </if>
+      <if test="record.num != null">
+        num = #{record.num,jdbcType=INTEGER},
+      </if>
+      <if test="record.grade != null">
+        grade = #{record.grade,jdbcType=INTEGER},
+      </if>
+      <if test="record.bind != null">
+        bind = #{record.bind,jdbcType=INTEGER},
+      </if>
+      <if test="record.ext != null">
+        ext = #{record.ext,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update npc_bag_item
+    set id = #{record.id,jdbcType=BIGINT},
+      bagId = #{record.bagid,jdbcType=INTEGER},
+      sn = #{record.sn,jdbcType=INTEGER},
+      humanId = #{record.humanid,jdbcType=BIGINT},
+      ownerId = #{record.ownerid,jdbcType=BIGINT},
+      num = #{record.num,jdbcType=INTEGER},
+      grade = #{record.grade,jdbcType=INTEGER},
+      bind = #{record.bind,jdbcType=INTEGER},
+      ext = #{record.ext,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sirius.server.mybatis.entity.BagItem">
+    update npc_bag_item
+    <set>
+      <if test="bagid != null">
+        bagId = #{bagid,jdbcType=INTEGER},
+      </if>
+      <if test="sn != null">
+        sn = #{sn,jdbcType=INTEGER},
+      </if>
+      <if test="humanid != null">
+        humanId = #{humanid,jdbcType=BIGINT},
+      </if>
+      <if test="ownerid != null">
+        ownerId = #{ownerid,jdbcType=BIGINT},
+      </if>
+      <if test="num != null">
+        num = #{num,jdbcType=INTEGER},
+      </if>
+      <if test="grade != null">
+        grade = #{grade,jdbcType=INTEGER},
+      </if>
+      <if test="bind != null">
+        bind = #{bind,jdbcType=INTEGER},
+      </if>
+      <if test="ext != null">
+        ext = #{ext,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sirius.server.mybatis.entity.BagItem">
+    update npc_bag_item
+    set bagId = #{bagid,jdbcType=INTEGER},
+      sn = #{sn,jdbcType=INTEGER},
+      humanId = #{humanid,jdbcType=BIGINT},
+      ownerId = #{ownerid,jdbcType=BIGINT},
+      num = #{num,jdbcType=INTEGER},
+      grade = #{grade,jdbcType=INTEGER},
+      bind = #{bind,jdbcType=INTEGER},
+      ext = #{ext,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

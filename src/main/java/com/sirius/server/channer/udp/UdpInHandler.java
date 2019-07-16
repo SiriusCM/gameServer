@@ -1,9 +1,9 @@
 package com.sirius.server.channer.udp;
 
 import com.sirius.server.World;
-import com.sirius.server.proto.MsgResponse;
-import com.sirius.server.proto.ProtoBuf;
-import com.sirius.server.proto.protobuf.Compute;
+import com.sirius.server.msg.MsgResponse;
+import com.sirius.server.msg.ProtoBuf;
+import com.sirius.server.msg.protobuf.Compute;
 import com.sirius.server.service.impl.UdpService;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;

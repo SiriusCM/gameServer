@@ -1,6 +1,6 @@
 package com.sirius.server.channer.tcp;
 
-import com.sirius.server.proto.ProtoBuf;
+import com.sirius.server.msg.ProtoBuf;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;

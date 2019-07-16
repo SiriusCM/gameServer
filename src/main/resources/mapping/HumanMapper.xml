@@ -1,0 +1,574 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sirius.server.mybatis.mapper.HumanMapper">
+  <resultMap id="BaseResultMap" type="com.sirius.server.mybatis.entity.Human">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="channelid" jdbcType="VARCHAR" property="channelid" />
+    <result column="uid" jdbcType="VARCHAR" property="uid" />
+    <result column="serverId" jdbcType="INTEGER" property="serverid" />
+    <result column="platformName" jdbcType="VARCHAR" property="platformname" />
+    <result column="deviceUniqueId" jdbcType="VARCHAR" property="deviceuniqueid" />
+    <result column="timeSecOnline" jdbcType="INTEGER" property="timeseconline" />
+    <result column="timeLogin" jdbcType="BIGINT" property="timelogin" />
+    <result column="timeLogout" jdbcType="BIGINT" property="timelogout" />
+    <result column="timeCreate" jdbcType="BIGINT" property="timecreate" />
+    <result column="timeLvChange" jdbcType="BIGINT" property="timelvchange" />
+    <result column="gameOptions" jdbcType="VARCHAR" property="gameoptions" />
+    <result column="initSn" jdbcType="INTEGER" property="initsn" />
+    <result column="gold" jdbcType="INTEGER" property="gold" />
+    <result column="diamond" jdbcType="INTEGER" property="diamond" />
+    <result column="phy" jdbcType="INTEGER" property="phy" />
+    <result column="level" jdbcType="INTEGER" property="level" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="profession" jdbcType="INTEGER" property="profession" />
+    <result column="sex" jdbcType="INTEGER" property="sex" />
+    <result column="exp" jdbcType="BIGINT" property="exp" />
+    <result column="lotto" jdbcType="TINYINT" property="lotto" />
+    <result column="tenLotto" jdbcType="TINYINT" property="tenlotto" />
+    <result column="xuZhangPass" jdbcType="TINYINT" property="xuzhangpass" />
+    <result column="bossList" jdbcType="VARCHAR" property="bosslist" />
+    <result column="food" jdbcType="INTEGER" property="food" />
+    <result column="silent" jdbcType="BIGINT" property="silent" />
+    <result column="ban" jdbcType="BIGINT" property="ban" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, channelid, uid, serverId, platformName, deviceUniqueId, timeSecOnline, timeLogin, 
+    timeLogout, timeCreate, timeLvChange, gameOptions, initSn, gold, diamond, phy, level, 
+    name, profession, sex, exp, lotto, tenLotto, xuZhangPass, bossList, food, silent, 
+    ban
+  </sql>
+  <select id="selectByExample" parameterType="com.sirius.server.mybatis.entity.HumanExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from npc_human
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from npc_human
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from npc_human
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sirius.server.mybatis.entity.HumanExample">
+    delete from npc_human
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sirius.server.mybatis.entity.Human">
+    insert into npc_human (id, channelid, uid, 
+      serverId, platformName, deviceUniqueId, 
+      timeSecOnline, timeLogin, timeLogout, 
+      timeCreate, timeLvChange, gameOptions, 
+      initSn, gold, diamond, 
+      phy, level, name, profession, 
+      sex, exp, lotto, tenLotto, 
+      xuZhangPass, bossList, food, 
+      silent, ban)
+    values (#{id,jdbcType=BIGINT}, #{channelid,jdbcType=VARCHAR}, #{uid,jdbcType=VARCHAR}, 
+      #{serverid,jdbcType=INTEGER}, #{platformname,jdbcType=VARCHAR}, #{deviceuniqueid,jdbcType=VARCHAR}, 
+      #{timeseconline,jdbcType=INTEGER}, #{timelogin,jdbcType=BIGINT}, #{timelogout,jdbcType=BIGINT}, 
+      #{timecreate,jdbcType=BIGINT}, #{timelvchange,jdbcType=BIGINT}, #{gameoptions,jdbcType=VARCHAR}, 
+      #{initsn,jdbcType=INTEGER}, #{gold,jdbcType=INTEGER}, #{diamond,jdbcType=INTEGER}, 
+      #{phy,jdbcType=INTEGER}, #{level,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{profession,jdbcType=INTEGER}, 
+      #{sex,jdbcType=INTEGER}, #{exp,jdbcType=BIGINT}, #{lotto,jdbcType=TINYINT}, #{tenlotto,jdbcType=TINYINT}, 
+      #{xuzhangpass,jdbcType=TINYINT}, #{bosslist,jdbcType=VARCHAR}, #{food,jdbcType=INTEGER}, 
+      #{silent,jdbcType=BIGINT}, #{ban,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sirius.server.mybatis.entity.Human">
+    insert into npc_human
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="channelid != null">
+        channelid,
+      </if>
+      <if test="uid != null">
+        uid,
+      </if>
+      <if test="serverid != null">
+        serverId,
+      </if>
+      <if test="platformname != null">
+        platformName,
+      </if>
+      <if test="deviceuniqueid != null">
+        deviceUniqueId,
+      </if>
+      <if test="timeseconline != null">
+        timeSecOnline,
+      </if>
+      <if test="timelogin != null">
+        timeLogin,
+      </if>
+      <if test="timelogout != null">
+        timeLogout,
+      </if>
+      <if test="timecreate != null">
+        timeCreate,
+      </if>
+      <if test="timelvchange != null">
+        timeLvChange,
+      </if>
+      <if test="gameoptions != null">
+        gameOptions,
+      </if>
+      <if test="initsn != null">
+        initSn,
+      </if>
+      <if test="gold != null">
+        gold,
+      </if>
+      <if test="diamond != null">
+        diamond,
+      </if>
+      <if test="phy != null">
+        phy,
+      </if>
+      <if test="level != null">
+        level,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="profession != null">
+        profession,
+      </if>
+      <if test="sex != null">
+        sex,
+      </if>
+      <if test="exp != null">
+        exp,
+      </if>
+      <if test="lotto != null">
+        lotto,
+      </if>
+      <if test="tenlotto != null">
+        tenLotto,
+      </if>
+      <if test="xuzhangpass != null">
+        xuZhangPass,
+      </if>
+      <if test="bosslist != null">
+        bossList,
+      </if>
+      <if test="food != null">
+        food,
+      </if>
+      <if test="silent != null">
+        silent,
+      </if>
+      <if test="ban != null">
+        ban,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="channelid != null">
+        #{channelid,jdbcType=VARCHAR},
+      </if>
+      <if test="uid != null">
+        #{uid,jdbcType=VARCHAR},
+      </if>
+      <if test="serverid != null">
+        #{serverid,jdbcType=INTEGER},
+      </if>
+      <if test="platformname != null">
+        #{platformname,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceuniqueid != null">
+        #{deviceuniqueid,jdbcType=VARCHAR},
+      </if>
+      <if test="timeseconline != null">
+        #{timeseconline,jdbcType=INTEGER},
+      </if>
+      <if test="timelogin != null">
+        #{timelogin,jdbcType=BIGINT},
+      </if>
+      <if test="timelogout != null">
+        #{timelogout,jdbcType=BIGINT},
+      </if>
+      <if test="timecreate != null">
+        #{timecreate,jdbcType=BIGINT},
+      </if>
+      <if test="timelvchange != null">
+        #{timelvchange,jdbcType=BIGINT},
+      </if>
+      <if test="gameoptions != null">
+        #{gameoptions,jdbcType=VARCHAR},
+      </if>
+      <if test="initsn != null">
+        #{initsn,jdbcType=INTEGER},
+      </if>
+      <if test="gold != null">
+        #{gold,jdbcType=INTEGER},
+      </if>
+      <if test="diamond != null">
+        #{diamond,jdbcType=INTEGER},
+      </if>
+      <if test="phy != null">
+        #{phy,jdbcType=INTEGER},
+      </if>
+      <if test="level != null">
+        #{level,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="profession != null">
+        #{profession,jdbcType=INTEGER},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="exp != null">
+        #{exp,jdbcType=BIGINT},
+      </if>
+      <if test="lotto != null">
+        #{lotto,jdbcType=TINYINT},
+      </if>
+      <if test="tenlotto != null">
+        #{tenlotto,jdbcType=TINYINT},
+      </if>
+      <if test="xuzhangpass != null">
+        #{xuzhangpass,jdbcType=TINYINT},
+      </if>
+      <if test="bosslist != null">
+        #{bosslist,jdbcType=VARCHAR},
+      </if>
+      <if test="food != null">
+        #{food,jdbcType=INTEGER},
+      </if>
+      <if test="silent != null">
+        #{silent,jdbcType=BIGINT},
+      </if>
+      <if test="ban != null">
+        #{ban,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sirius.server.mybatis.entity.HumanExample" resultType="java.lang.Long">
+    select count(*) from npc_human
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update npc_human
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.channelid != null">
+        channelid = #{record.channelid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.uid != null">
+        uid = #{record.uid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serverid != null">
+        serverId = #{record.serverid,jdbcType=INTEGER},
+      </if>
+      <if test="record.platformname != null">
+        platformName = #{record.platformname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deviceuniqueid != null">
+        deviceUniqueId = #{record.deviceuniqueid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.timeseconline != null">
+        timeSecOnline = #{record.timeseconline,jdbcType=INTEGER},
+      </if>
+      <if test="record.timelogin != null">
+        timeLogin = #{record.timelogin,jdbcType=BIGINT},
+      </if>
+      <if test="record.timelogout != null">
+        timeLogout = #{record.timelogout,jdbcType=BIGINT},
+      </if>
+      <if test="record.timecreate != null">
+        timeCreate = #{record.timecreate,jdbcType=BIGINT},
+      </if>
+      <if test="record.timelvchange != null">
+        timeLvChange = #{record.timelvchange,jdbcType=BIGINT},
+      </if>
+      <if test="record.gameoptions != null">
+        gameOptions = #{record.gameoptions,jdbcType=VARCHAR},
+      </if>
+      <if test="record.initsn != null">
+        initSn = #{record.initsn,jdbcType=INTEGER},
+      </if>
+      <if test="record.gold != null">
+        gold = #{record.gold,jdbcType=INTEGER},
+      </if>
+      <if test="record.diamond != null">
+        diamond = #{record.diamond,jdbcType=INTEGER},
+      </if>
+      <if test="record.phy != null">
+        phy = #{record.phy,jdbcType=INTEGER},
+      </if>
+      <if test="record.level != null">
+        level = #{record.level,jdbcType=INTEGER},
+      </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.profession != null">
+        profession = #{record.profession,jdbcType=INTEGER},
+      </if>
+      <if test="record.sex != null">
+        sex = #{record.sex,jdbcType=INTEGER},
+      </if>
+      <if test="record.exp != null">
+        exp = #{record.exp,jdbcType=BIGINT},
+      </if>
+      <if test="record.lotto != null">
+        lotto = #{record.lotto,jdbcType=TINYINT},
+      </if>
+      <if test="record.tenlotto != null">
+        tenLotto = #{record.tenlotto,jdbcType=TINYINT},
+      </if>
+      <if test="record.xuzhangpass != null">
+        xuZhangPass = #{record.xuzhangpass,jdbcType=TINYINT},
+      </if>
+      <if test="record.bosslist != null">
+        bossList = #{record.bosslist,jdbcType=VARCHAR},
+      </if>
+      <if test="record.food != null">
+        food = #{record.food,jdbcType=INTEGER},
+      </if>
+      <if test="record.silent != null">
+        silent = #{record.silent,jdbcType=BIGINT},
+      </if>
+      <if test="record.ban != null">
+        ban = #{record.ban,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update npc_human
+    set id = #{record.id,jdbcType=BIGINT},
+      channelid = #{record.channelid,jdbcType=VARCHAR},
+      uid = #{record.uid,jdbcType=VARCHAR},
+      serverId = #{record.serverid,jdbcType=INTEGER},
+      platformName = #{record.platformname,jdbcType=VARCHAR},
+      deviceUniqueId = #{record.deviceuniqueid,jdbcType=VARCHAR},
+      timeSecOnline = #{record.timeseconline,jdbcType=INTEGER},
+      timeLogin = #{record.timelogin,jdbcType=BIGINT},
+      timeLogout = #{record.timelogout,jdbcType=BIGINT},
+      timeCreate = #{record.timecreate,jdbcType=BIGINT},
+      timeLvChange = #{record.timelvchange,jdbcType=BIGINT},
+      gameOptions = #{record.gameoptions,jdbcType=VARCHAR},
+      initSn = #{record.initsn,jdbcType=INTEGER},
+      gold = #{record.gold,jdbcType=INTEGER},
+      diamond = #{record.diamond,jdbcType=INTEGER},
+      phy = #{record.phy,jdbcType=INTEGER},
+      level = #{record.level,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=VARCHAR},
+      profession = #{record.profession,jdbcType=INTEGER},
+      sex = #{record.sex,jdbcType=INTEGER},
+      exp = #{record.exp,jdbcType=BIGINT},
+      lotto = #{record.lotto,jdbcType=TINYINT},
+      tenLotto = #{record.tenlotto,jdbcType=TINYINT},
+      xuZhangPass = #{record.xuzhangpass,jdbcType=TINYINT},
+      bossList = #{record.bosslist,jdbcType=VARCHAR},
+      food = #{record.food,jdbcType=INTEGER},
+      silent = #{record.silent,jdbcType=BIGINT},
+      ban = #{record.ban,jdbcType=BIGINT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sirius.server.mybatis.entity.Human">
+    update npc_human
+    <set>
+      <if test="channelid != null">
+        channelid = #{channelid,jdbcType=VARCHAR},
+      </if>
+      <if test="uid != null">
+        uid = #{uid,jdbcType=VARCHAR},
+      </if>
+      <if test="serverid != null">
+        serverId = #{serverid,jdbcType=INTEGER},
+      </if>
+      <if test="platformname != null">
+        platformName = #{platformname,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceuniqueid != null">
+        deviceUniqueId = #{deviceuniqueid,jdbcType=VARCHAR},
+      </if>
+      <if test="timeseconline != null">
+        timeSecOnline = #{timeseconline,jdbcType=INTEGER},
+      </if>
+      <if test="timelogin != null">
+        timeLogin = #{timelogin,jdbcType=BIGINT},
+      </if>
+      <if test="timelogout != null">
+        timeLogout = #{timelogout,jdbcType=BIGINT},
+      </if>
+      <if test="timecreate != null">
+        timeCreate = #{timecreate,jdbcType=BIGINT},
+      </if>
+      <if test="timelvchange != null">
+        timeLvChange = #{timelvchange,jdbcType=BIGINT},
+      </if>
+      <if test="gameoptions != null">
+        gameOptions = #{gameoptions,jdbcType=VARCHAR},
+      </if>
+      <if test="initsn != null">
+        initSn = #{initsn,jdbcType=INTEGER},
+      </if>
+      <if test="gold != null">
+        gold = #{gold,jdbcType=INTEGER},
+      </if>
+      <if test="diamond != null">
+        diamond = #{diamond,jdbcType=INTEGER},
+      </if>
+      <if test="phy != null">
+        phy = #{phy,jdbcType=INTEGER},
+      </if>
+      <if test="level != null">
+        level = #{level,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="profession != null">
+        profession = #{profession,jdbcType=INTEGER},
+      </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="exp != null">
+        exp = #{exp,jdbcType=BIGINT},
+      </if>
+      <if test="lotto != null">
+        lotto = #{lotto,jdbcType=TINYINT},
+      </if>
+      <if test="tenlotto != null">
+        tenLotto = #{tenlotto,jdbcType=TINYINT},
+      </if>
+      <if test="xuzhangpass != null">
+        xuZhangPass = #{xuzhangpass,jdbcType=TINYINT},
+      </if>
+      <if test="bosslist != null">
+        bossList = #{bosslist,jdbcType=VARCHAR},
+      </if>
+      <if test="food != null">
+        food = #{food,jdbcType=INTEGER},
+      </if>
+      <if test="silent != null">
+        silent = #{silent,jdbcType=BIGINT},
+      </if>
+      <if test="ban != null">
+        ban = #{ban,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sirius.server.mybatis.entity.Human">
+    update npc_human
+    set channelid = #{channelid,jdbcType=VARCHAR},
+      uid = #{uid,jdbcType=VARCHAR},
+      serverId = #{serverid,jdbcType=INTEGER},
+      platformName = #{platformname,jdbcType=VARCHAR},
+      deviceUniqueId = #{deviceuniqueid,jdbcType=VARCHAR},
+      timeSecOnline = #{timeseconline,jdbcType=INTEGER},
+      timeLogin = #{timelogin,jdbcType=BIGINT},
+      timeLogout = #{timelogout,jdbcType=BIGINT},
+      timeCreate = #{timecreate,jdbcType=BIGINT},
+      timeLvChange = #{timelvchange,jdbcType=BIGINT},
+      gameOptions = #{gameoptions,jdbcType=VARCHAR},
+      initSn = #{initsn,jdbcType=INTEGER},
+      gold = #{gold,jdbcType=INTEGER},
+      diamond = #{diamond,jdbcType=INTEGER},
+      phy = #{phy,jdbcType=INTEGER},
+      level = #{level,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      profession = #{profession,jdbcType=INTEGER},
+      sex = #{sex,jdbcType=INTEGER},
+      exp = #{exp,jdbcType=BIGINT},
+      lotto = #{lotto,jdbcType=TINYINT},
+      tenLotto = #{tenlotto,jdbcType=TINYINT},
+      xuZhangPass = #{xuzhangpass,jdbcType=TINYINT},
+      bossList = #{bosslist,jdbcType=VARCHAR},
+      food = #{food,jdbcType=INTEGER},
+      silent = #{silent,jdbcType=BIGINT},
+      ban = #{ban,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
