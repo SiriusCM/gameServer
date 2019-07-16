@@ -1,7 +1,6 @@
 package com.sirius.server.service.impl;
 
 import com.sirius.server.MethodInvoke;
-import com.sirius.server.QuartzJob;
 import com.sirius.server.event.Init;
 import com.sirius.server.event.Schedule;
 import com.sirius.server.service.IService;
@@ -34,7 +33,7 @@ public class QuartzService implements IService {
         }
     }
 
-    public void createJob(Scheduler scheduler, String jobName, String cronExpression, Class<? extends Job> classs, MethodInvoke methodInvoke) {
+    private void createJob(Scheduler scheduler, String jobName, String cronExpression, Class<? extends Job> classs, MethodInvoke methodInvoke) {
         try {
             JobKey jobKey = new JobKey(jobName, Scheduler.DEFAULT_GROUP);
             if (scheduler.getJobDetail(jobKey) != null) {
@@ -52,6 +51,16 @@ public class QuartzService implements IService {
             scheduler.scheduleJob(job, trigger);
         } catch (SchedulerException e) {
             e.printStackTrace();
+        }
+    }
+
+    private class QuartzJob implements Job {
+
+        @Override
+        public void execute(JobExecutionContext jobExecutionContext) {
+            JobDataMap jobDataMap = jobExecutionContext.getJobDetail().getJobDataMap();
+            MethodInvoke methodInvoke = (MethodInvoke) jobDataMap.get("methodInvoke");
+            methodInvoke.invoke();
         }
     }
 }

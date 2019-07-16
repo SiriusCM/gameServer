@@ -2,9 +2,7 @@ package com.sirius.server.service.impl;
 
 import com.sirius.server.MethodInvoke;
 import com.sirius.server.World;
-import com.sirius.server.event.Handler;
 import com.sirius.server.event.Init;
-import com.sirius.server.msg.MsgRequest;
 import com.sirius.server.service.IService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,12 +35,12 @@ public class MethodService<T extends Annotation> implements IService {
         });
     }
 
-    public List<MethodInvoke<T>> getMethods(Class<T> annotationClass) {
-        return methodMap.get(annotationClass);
+    public void trigger(Class<T> annotationClass, Object... args) {
+        methodMap.get(annotationClass).forEach(e -> e.invoke());
     }
 
-    public void trigger(Class<T> annotationClass) {
-        methodMap.get(annotationClass).forEach(e -> e.invoke());
+    public List<MethodInvoke<T>> getMethods(Class<T> annotationClass) {
+        return methodMap.get(annotationClass);
     }
 
     private List<MethodInvoke<T>> findMethods(Class<T> annotationClass) {
