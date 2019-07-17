@@ -26,20 +26,20 @@ public class QuartzService implements IService {
             scheduler.start();
             methodService.getMethods(Schedule.class).forEach(e -> {
                 Schedule schedule = e.getAnnotation();
-                createJob(scheduler, "QuartzJob" + e.hashCode(), schedule.value(), QuartzJob.class, e);
+                createJob(scheduler, "QuartzJob" + e.hashCode(), schedule.value(), e);
             });
         } catch (SchedulerException e) {
             e.printStackTrace();
         }
     }
 
-    private void createJob(Scheduler scheduler, String jobName, String cronExpression, Class<? extends Job> classs, MethodInvoke methodInvoke) {
+    private void createJob(Scheduler scheduler, String jobName, String cronExpression, MethodInvoke methodInvoke) {
         try {
             JobKey jobKey = new JobKey(jobName, Scheduler.DEFAULT_GROUP);
             if (scheduler.getJobDetail(jobKey) != null) {
                 scheduler.deleteJob(jobKey);
             }
-            JobDetail job = JobBuilder.newJob(classs).withIdentity(jobKey).build();
+            JobDetail job = JobBuilder.newJob(QuartzJob.class).withIdentity(jobKey).build();
             job.getJobDataMap().put("methodInvoke", methodInvoke);
             TriggerKey triggerKey = new TriggerKey(jobName + System.currentTimeMillis(), Scheduler.DEFAULT_GROUP);
             Trigger trigger = TriggerBuilder
@@ -54,7 +54,7 @@ public class QuartzService implements IService {
         }
     }
 
-    private class QuartzJob implements Job {
+    public static class QuartzJob implements Job {
 
         @Override
         public void execute(JobExecutionContext jobExecutionContext) {
