@@ -36,7 +36,7 @@ public class MethodService<T extends Annotation> implements IService {
     }
 
     public void trigger(Class<T> annotationClass, Object... args) {
-        methodMap.get(annotationClass).forEach(e -> e.invoke());
+        methodMap.get(annotationClass).forEach(e -> e.invoke(args));
     }
 
     public List<MethodInvoke<T>> getMethods(Class<T> annotationClass) {
