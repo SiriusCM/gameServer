@@ -8,7 +8,7 @@ import org.springframework.context.ApplicationContext;
 
 @SpringBootApplication
 @EnableEurekaClient
-@MapperScan("com.sirius.server.database.mapper")
+@MapperScan("com.sirius.server.mybatis.mapper")
 public class ServerApplication {
 
     public static void main(String[] args) {
